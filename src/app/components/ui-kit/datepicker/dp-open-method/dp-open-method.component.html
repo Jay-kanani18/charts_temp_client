@@ -1,0 +1,5 @@
+<mat-form-field appearance="fill" class="visually-hidden-focusable">
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+<button mat-raised-button (click)="picker.open()">Open</button>

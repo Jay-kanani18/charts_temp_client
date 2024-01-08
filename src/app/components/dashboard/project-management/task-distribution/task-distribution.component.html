@@ -1,0 +1,30 @@
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Peak Hours</h5>
+        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+        [matMenuTriggerFor]="monthMenu8">
+        {{filter.name}}
+    </button>
+    <mat-menu #monthMenu8="matMenu" class="monthMenu" xPosition="before">
+        <button mat-menu-item type="button" class="bg-transparent border-none"
+            *ngFor="let item of filter_object" (click)="onFilter(item)">{{item.name}}</button>
+
+    </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="chart">
+            <apx-chart
+                [series]="chartOptions?.series!"
+                [chart]="chartOptions?.chart!"
+                [labels]="chartOptions?.labels!"
+                [plotOptions]="chartOptions?.plotOptions!"
+                [fill]="chartOptions?.fill!"
+                [grid]="chartOptions?.grid!"
+                [legend]="chartOptions?.legend!"
+                [colors]="chartOptions?.colors!"
+                [stroke]="chartOptions?.stroke!"
+                [responsive]="chartOptions?.responsive!"
+            ></apx-chart>
+        </div>
+    </mat-card-content>
+</mat-card>

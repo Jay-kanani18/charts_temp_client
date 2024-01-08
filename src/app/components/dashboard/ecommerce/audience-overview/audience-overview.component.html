@@ -1,0 +1,29 @@
+<mat-card class="mb-25 tagus-card audienceOverview-box" *ngIf="top_sales.load">
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">People Most Order For</h5>
+        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+            [matMenuTriggerFor]="monthMenu8">
+            {{filter.name}}
+        </button>
+        <mat-menu #monthMenu8="matMenu" class="monthMenu" xPosition="before">
+            <button mat-menu-item type="button" class="bg-transparent border-none" *ngFor="let item of filter_object"
+                (click)="onFilter(item)">{{item.name}}</button>
+
+        </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="chart audienceOverviewChart">
+            <apx-chart [series]="chartOptions?.series!" [chart]="chartOptions?.chart!"
+                [dataLabels]="chartOptions?.dataLabels!" [plotOptions]="chartOptions?.plotOptions!"
+                [yaxis]="chartOptions?.yaxis!" [legend]="chartOptions?.legend!" [fill]="chartOptions?.fill!"
+                [stroke]="chartOptions?.stroke!" [tooltip]="chartOptions?.tooltip!" [xaxis]="chartOptions?.xaxis!"
+                [colors]="chartOptions?.colors!" [grid]="chartOptions?.grid!"></apx-chart>
+        </div>
+    </mat-card-content>
+</mat-card>
+
+
+<ngx-skeleton-loader class="mb-25 tagus-card audienceOverview-box"
+    [theme]="{height: '80%', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
+    *ngIf="!top_sales.load">
+</ngx-skeleton-loader>

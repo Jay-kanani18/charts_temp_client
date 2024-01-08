@@ -1,0 +1,10 @@
+{
+  "hosting": {
+    "public": "dist/tagus",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

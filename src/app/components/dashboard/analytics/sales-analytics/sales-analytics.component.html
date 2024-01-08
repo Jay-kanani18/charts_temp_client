@@ -1,0 +1,31 @@
+<mat-card class="mb-25 tagus-card">
+    <mat-card-header class="border-bottom">
+        <h5 class="mb-0">Promo Usage</h5>
+        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+        [matMenuTriggerFor]="monthMenu8">
+        {{filter.name}}
+    </button>
+    <mat-menu #monthMenu8="matMenu" class="monthMenu" xPosition="before">
+        <button mat-menu-item type="button" class="bg-transparent border-none" *ngFor="let item of filter_object"
+            (click)="onFilter(item)">{{item.name}}</button>
+
+    </mat-menu>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="chart salesAnalyticsChart">
+            <apx-chart
+                [series]="chartOptions?.series!"
+                [chart]="chartOptions?.chart!"
+                [dataLabels]="chartOptions?.dataLabels!"
+                [plotOptions]="chartOptions?.plotOptions!"
+                [responsive]="chartOptions?.responsive!"
+                [xaxis]="chartOptions?.xaxis!"
+                [grid]="chartOptions?.grid!"
+                [yaxis]="chartOptions?.yaxis!"
+                [legend]="chartOptions?.legend!"
+                [colors]="chartOptions?.colors!"
+                [fill]="chartOptions?.fill!"
+            ></apx-chart>
+        </div>
+    </mat-card-content>
+</mat-card>

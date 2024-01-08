@@ -1,0 +1,1165 @@
+<div class="row">
+    <div class="col-xxl-9">
+
+
+        <mat-card class="single-stats-box tagus-card mb-25">
+
+            <mat-card-header class="border-bottom">
+
+                <h4>Bussiness</h4>
+                <div class="d-inline-block" *ngIf="filter14.startDate&&filter14.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter14.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter14.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu14">
+                        {{filter14.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker14">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter14.startDate"
+                                (dateChange)=" filter14.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter14.endDate"
+                                (dateChange)="filter14.endDate=$event.value ;onFilter14(filter14)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker14"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker14></mat-date-range-picker>
+                    </mat-form-field>
+                    <!-- <mat-form-field appearance="fill" class="example-full-width visually-hidden">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                            <input matStartDate placeholder="Start date">
+                            <input matEndDate placeholder="End date">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field> -->
+                </div>
+                <mat-menu #monthMenu14="matMenu" class="monthMenu" xPosition="before">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+
+                        <div *ngIf="item.value != 5 " (click)="onFilter14(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 "
+                            (click)="filter14.startDate='';filter14.endDate='';picker14.open()"> {{item.name}} </div>
+                    </button>
+
+                </mat-menu>
+            </mat-card-header>
+
+            <div class="row">
+
+                <div class="col-md-4">
+                    <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
+                        [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
+                        *ngIf="!bussiness_detail.load">
+                    </ngx-skeleton-loader>
+                    <mat-card class="single-stats-box tagus-card mb-25" *ngIf="bussiness_detail.load">
+                        <div class="d-flex justify-content-space-between align-items-center">
+
+                            <div class="title">
+                                <h3>${{bussiness_detail.total_revenue | numberFormat}}</h3>
+                                <span class="d-block gray-color">Total Revenue</span>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-donut-chart"></i>
+                            </div>
+                        </div>
+                        <!-- <p class="position-relative up"><i class="flaticon-trend"></i> <span>1.3%</span> Up from past week
+                        </p> -->
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
+                        [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
+                        *ngIf="!bussiness_detail.load">
+                    </ngx-skeleton-loader>
+                    <mat-card class="single-stats-box tagus-card mb-25" *ngIf="bussiness_detail.load">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="title">
+                                <h3>{{bussiness_detail.total_orders | numberFormat}}</h3>
+                                <span class="d-block gray-color">Total Orders</span>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-goal"></i>
+                            </div>
+                        </div>
+                        <!-- <p class="position-relative up"><i class="flaticon-trend"></i> <span>0.5%</span> Up from past week
+                        </p> -->
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
+                        [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
+                        *ngIf="!bussiness_detail.load">
+                    </ngx-skeleton-loader>
+                    <mat-card class="single-stats-box tagus-card mb-25" *ngIf="bussiness_detail.load">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="title">
+                                <h3>{{bussiness_detail.total_users | numberFormat}}</h3>
+                                <span class="d-block gray-color">Total Customers</span>
+                            </div>
+                            <div class="icon">
+                                <i class="flaticon-award"></i>
+                            </div>
+                        </div>
+                        <!-- <p class="position-relative down"><i class="flaticon-trend-1"></i> <span>1%</span> Down from past
+                            week</p> -->
+                    </mat-card>
+                </div>
+
+
+            </div>
+        </mat-card>
+
+
+
+        <mat-card class="mb-25 tagus-card audienceOverview-box">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">People Most Order For</h5>
+                <div class="d-inline-block" *ngIf="filter9.startDate&&filter9.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter9.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter9.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu9">
+                        {{filter9.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker9">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter9.startDate"
+                                (dateChange)=" filter9.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter9.endDate"
+                                (dateChange)="filter9.endDate=$event.value ;onFilter9(filter9)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker9"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker9></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu9="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter9(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter9.startDate='';filter9.endDate='';picker9.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+
+            <mat-card-content>
+                <!-- <div  class="chart audienceOverviewChart" *ngIf="!top_sales.load"> -->
+
+                <ngx-skeleton-loader class="chart audienceOverviewChart" *ngIf="!top_sales.load"
+                    [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <!-- </div> -->
+
+                <div class="chart audienceOverviewChart" *ngIf="top_sales.load">
+                    <apx-chart [series]="chartOptions9?.series!" [chart]="chartOptions9?.chart!"
+                        [dataLabels]="chartOptions9?.dataLabels!" [plotOptions]="chartOptions9?.plotOptions!"
+                        [yaxis]="chartOptions9?.yaxis!" [legend]="chartOptions9?.legend!" [fill]="chartOptions9?.fill!"
+                        [stroke]="chartOptions9?.stroke!" [tooltip]="chartOptions9?.tooltip!"
+                        [xaxis]="chartOptions9?.xaxis!" [colors]="chartOptions9?.colors!"
+                        [grid]="chartOptions9?.grid!"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+        <!-- <ngx-skeleton-loader class="mb-25 tagus-card audienceOverview-box"
+            [theme]="{height: '80%', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
+            *ngIf="!top_sales.load">
+        </ngx-skeleton-loader> -->
+
+
+        <!-- <app-audience-overview></app-audience-overview> -->
+
+    </div>
+
+    <div class="col-xxl-3">
+
+
+
+        <mat-card class="single-stats-box tagus-card mb-25">
+            <mat-card-header class="border-bottom">
+
+                <div class="d-flex flex-column">
+                    <h4>Platform Usage</h4>
+
+
+                    <div *ngIf="filter1.startDate&&filter1.endDate">
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter1.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter1.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu1">
+                        {{filter1.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker1">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter1.startDate"
+                                (dateChange)=" filter1.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter1.endDate"
+                                (dateChange)="filter1.endDate=$event.value ;onFilter1(filter1)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker1></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu1="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter1(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter1.startDate='';filter1.endDate='';picker1.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+
+
+
+            <div class="chart1" id="chart3" *ngIf="platform_used.load">
+
+            </div>
+
+            <!-- <div class="chart1 mb-25 d-flex align-items-center" *ngIf="!platform_used.load">
+                <div class="loadingio-spinner-spinner-kp1b4frydvg"><div class="ldio-tu2ura20xl">
+                    <div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div>
+                    </div></div>
+
+
+            </div> -->
+
+            <div class="chart1 mb-25" *ngIf="!platform_used.load">
+                <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
+                    [theme]="{height: '100%', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+            </div>
+
+
+            <div class="mb-25" style="height: 200px;" *ngIf="!people_visited.load">
+                <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
+                    [theme]="{height: '100%', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+
+            </div>
+
+
+            <mat-card class="mb-25 tagus-card" [class.component-dark-theme]="themeService.isDark() "
+                [class.component-rtl-enabled]="themeService.isRTLEnabled()" *ngIf="people_visited.load">
+                <mat-card-content>
+                    <!-- <div class="date-btn main-color fw-semibold position-relative">
+        <i class="flaticon-calendar"></i> {{ formattedDate }}
+    </div> -->
+                    <div class="status-item position-relative">
+                        <div class="d-flex align-items-center">
+                            <div class="icon position-relative">
+                                <i class="flaticon-pie-chart-3"></i>
+                            </div>
+                            <div class="title">
+                                <span class="d-block gray-color">User Visits</span>
+                                <h4>{{visited | numberFormat}}</h4>
+                            </div>
+                        </div>
+                        <div class="chart">
+
+                        </div>
+                    </div>
+                    <div class="status-item position-relative">
+                        <div class="d-flex align-items-center">
+                            <div class="icon position-relative">
+                                <i class="flaticon-pie-chart-1"></i>
+                            </div>
+                            <div class="title">
+                                <span class="d-block gray-color">Order Placed</span>
+                                <h4>{{orders |numberFormat}}</h4>
+                            </div>
+                        </div>
+                        <div class="chart">
+
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </mat-card>
+
+
+        <!-- <app-analytics-status></app-analytics-status> -->
+    </div>
+
+
+    <div class="col-xxl-3">
+
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <div class="d-flex flex-column">
+
+                    <h5 class="mb-0">Peak Hours</h5>
+                    <div class="d-inline-block" *ngIf="filter10.startDate&&filter10.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter10.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter10.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu10">
+                        {{filter10.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker10">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter10.startDate"
+                                (dateChange)=" filter10.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter10.endDate"
+                                (dateChange)="filter10.endDate=$event.value ;onFilter10(filter10)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker10"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker10></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu10="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter10(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 "
+                            (click)="filter10.startDate='';filter10.endDate='';picker10.open()"> {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+
+
+                <div class="chart">
+
+
+                    <ngx-skeleton-loader *ngIf="!peak_hours.load"
+                        [theme]="{minHeight: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                    <apx-chart *ngIf="peak_hours.load" [series]="chartOptions11?.series!"
+                        [chart]="chartOptions11?.chart!" [labels]="chartOptions11?.labels!"
+                        [plotOptions]="chartOptions11?.plotOptions!" [fill]="chartOptions11?.fill!"
+                        [grid]="chartOptions11?.grid!" [legend]="chartOptions11?.legend!"
+                        [colors]="chartOptions11?.colors!" [stroke]="chartOptions11?.stroke!"
+                        [responsive]="chartOptions11?.responsive!"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <!-- <app-task-distribution></app-task-distribution> -->
+
+
+
+
+    </div>
+
+    <div class="col-xxl-6">
+
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Promo Usage</h5>
+                <div class="d-inline-block" *ngIf="filter11.startDate&&filter11.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter11.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter11.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu11">
+                        {{filter11.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker11">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter11.startDate"
+                                (dateChange)=" filter11.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter11.endDate"
+                                (dateChange)="filter11.endDate=$event.value ;onFilter11(filter11)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker11"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker11></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu11="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter11(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 "
+                            (click)="filter11.startDate='';filter11.endDate='';picker11.open()"> {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <ngx-skeleton-loader *ngIf="!order_type.load"
+                    [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <div class="chart salesAnalyticsChart" *ngIf="order_type.load">
+                    <apx-chart [series]="chartOptions12?.series!" [chart]="chartOptions12?.chart!"
+                        [dataLabels]="chartOptions12?.dataLabels!" [plotOptions]="chartOptions12?.plotOptions!"
+                        [responsive]="chartOptions12?.responsive!" [xaxis]="chartOptions12?.xaxis!"
+                        [grid]="chartOptions12?.grid!" [yaxis]="chartOptions12?.yaxis!"
+                        [legend]="chartOptions12?.legend!" [colors]="chartOptions12?.colors!"
+                        [fill]="chartOptions12?.fill!"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <!-- <app-sales-analytics></app-sales-analytics> -->
+    </div>
+
+    <div class="col-xxl-3">
+        <mat-card class="single-stats-box tagus-card mb-25">
+
+            <mat-card-header class="border-bottom">
+
+                <div class="d-flex flex-column">
+                    <h4>Ratings</h4>
+
+                    <div class="d-inline-block" *ngIf="filter2.startDate&&filter2.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter2.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter2.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu2">
+                        {{filter2.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker2">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter2.startDate"
+                                (dateChange)=" filter2.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter2.endDate"
+                                (dateChange)="filter2.endDate=$event.value ;onFilter2(filter2)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker2></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu2="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter2(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter2.startDate='';filter2.endDate='';picker2.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+
+            <div class="row">
+                <div class="col-md-12">
+
+
+                    <ngx-skeleton-loader *ngIf="!Ratings.load"
+                        [theme]="{height: '300px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                </div>
+                <div class="col-md-12" *ngIf="Ratings.load && Ratings.store.count > 0">
+                    <mat-card class="single-stats-box tagus-card ">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="icon">
+                                <i class="flaticon-shopping-cart"></i>
+                            </div>
+                            <div class="title">
+                                <h5 class="d-flex justify-content-end align-items-center">{{Ratings.store.name}}</h5>
+                                <span class="gray-color d-flex justify-content-end align-items-center"> <i
+                                        class="flaticon-star"></i>&nbsp; {{Ratings.store.rating}}
+                                    ({{Ratings.store.count}})</span>
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+                <div class="col-md-12" *ngIf="Ratings.load &&  Ratings.provider.count > 0">
+                    <mat-card class="single-stats-box tagus-card ">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="icon">
+                                <i class="flaticon-fast-delivery"></i>
+                            </div>
+                            <div class="title">
+                                <h5 class="d-flex justify-content-end align-items-center">{{Ratings.provider.name}}</h5>
+                                <span class="gray-color d-flex justify-content-end align-items-center"> <i
+                                        class="flaticon-star"></i>&nbsp; {{Ratings.provider.rating}}
+                                    ({{Ratings.provider.count}})</span>
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+                <div class="col-md-12" *ngIf="Ratings.load && Ratings.user.count >0">
+                    <mat-card class="single-stats-box tagus-card ">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="icon">
+                                <i class="flaticon-user"></i>
+                            </div>
+                            <div class="title">
+                                <h5 class="d-flex justify-content-end align-items-center">{{Ratings.user.name}}</h5>
+                                <span class="gray-color d-flex justify-content-end align-items-center"> <i
+                                        class="flaticon-star"></i>&nbsp; {{Ratings.user.rating}}
+                                    ({{Ratings.user.count}})</span>
+
+                                <!-- <span class="d-block gray-color">Total Customers</span> -->
+                            </div>
+                        </div>
+
+                    </mat-card>
+                </div>
+
+            </div>
+        </mat-card>
+
+
+    </div>
+
+
+    <div class="col-xxl-6">
+        <mat-card class="mb-25 tagus-card messages-box" [class.component-dark-theme]="themeService.isDark()"
+            [class.component-rtl-enabled]="themeService.isRTLEnabled()">
+            <mat-card-header>
+                <h5 class="mb-0">Top Users</h5>
+                <div class="d-inline-block" *ngIf="filter3.startDate&&filter3.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter3.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter3.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu3">
+                        {{filter3.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker3">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter3.startDate"
+                                (dateChange)=" filter3.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter3.endDate"
+                                (dateChange)="filter3.endDate=$event.value ;onFilter3(filter3)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker3></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu3="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter3(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter3.startDate='';filter3.endDate='';picker3.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+
+                <ngx-skeleton-loader *ngIf="!top_users.load"
+                    [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <div class="messages-list" *ngIf="top_users.load">
+                    <div class="single-message position-relative d-flex align-items-center justify-content-space-between"
+                        *ngFor="let user of top_users.list">
+                        <div class="content d-flex align-items-center">
+                            <!-- <div class="img position-relative">
+                                <img src="https://hop-delivery.s3.eu-central-1.amazonaws.com/{{user.user.image_url}}"
+                                    alt="user">
+                            </div> -->
+                            <div class="title">
+                                <h5>{{user?.user?.first_name}} {{user?.user?.last_name}}</h5>
+                                <p>#{{user?.user?.unique_id}}</p>
+                            </div>
+                        </div>
+                        <div class="info text-end">
+                            <div class="d-flex flex-column align-items-center justify-content-end">
+                                <div class="revenue">Orders : {{user.count}}</div>
+                                <div class="badge1">Revenue : $ {{user.revenue | numberFormat}}</div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <!-- <mat-card class="single-stats-box tagus-card mb-25">
+            <mat-card-header class="border-bottom">
+
+                <h4>Top Users</h4>
+                <button type="button" mat-button class="position-relative dot-btn p-0 bg-transparent border-none"
+                    [matMenuTriggerFor]="monthMenu">
+                    <i class="ri-more-fill"></i>
+                </button>
+                <mat-menu #monthMenu="matMenu" class="monthMenu" xPosition="before">
+                    <button mat-menu-item type="button" class="bg-transparent border-none">Today</button>
+                    <button mat-menu-item type="button" class="bg-transparent border-none">Last Month</button>
+                    <button mat-menu-item type="button" class="bg-transparent border-none">Last Year</button>
+                    <button mat-menu-item type="button" class="bg-transparent border-none">All Time</button>
+                </mat-menu>
+            </mat-card-header>
+            <div class="row">
+                <div class="col-md-6" *ngFor="let user of top_users">
+                    <mat-card class="single-stats-box tagus-card mb-25">
+                        <div class="d-flex justify-content-space-between align-items-center">
+                            <div class="title">
+                                <div class="d-flex ">
+
+                                <span><strong>{{user?.user?.first_name }}{{ user?.user?.last_name}}</strong></span>
+                                <span class="mx-2"></span>
+                            </div>
+                                <span class="d-block gray-color">{{user.count}} Orders</span>
+                            </div>
+                      
+                        </div>
+                       
+                    </mat-card>
+                </div>
+             
+            </div>
+        </mat-card> -->
+    </div>
+
+    <div class="col-xxl-6">
+
+        <mat-card class="mb-25 tagus-card messages-box" [class.component-dark-theme]="themeService.isDark()"
+            [class.component-rtl-enabled]="themeService.isRTLEnabled()">
+            <mat-card-header>
+                <h5 class="mb-0">Top Drivers</h5>
+                <div class="d-inline-block" *ngIf="filter4.startDate&&filter4.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter4.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter4.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu4">
+                        {{filter4.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker4">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter4.startDate"
+                                (dateChange)=" filter4.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter4.endDate"
+                                (dateChange)="filter4.endDate=$event.value ;onFilter4(filter4)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker4"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker4></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu4="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter4(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter4.startDate='';filter4.endDate='';picker4.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <ngx-skeleton-loader *ngIf="!top_providers.load"
+                    [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <div class="messages-list" *ngIf="top_providers.load">
+                    <div class="single-message position-relative d-flex align-items-center justify-content-space-between"
+                        *ngFor="let provider of top_providers.list">
+                        <div class="content d-flex align-items-center">
+                            <div class="img position-relative">
+                                <img src="https://hop-delivery.s3.eu-central-1.amazonaws.com/{{provider.provider.image_url}}"
+                                    alt="user">
+                                <!-- <span class="active-status"></span> -->
+                            </div>
+                            <div class="title">
+                                <h5>{{provider.provider.first_name}} {{provider.provider.last_name}}</h5>
+                                <p>#{{provider.provider.unique_id}}</p>
+                            </div>
+                        </div>
+                        <div class="info text-end">
+                            <div class="d-flex flex-column align-items-center justify-content-end">
+                                <div class="revenue">Orders : {{provider.count}}</div>
+                                <div class="badge1">Revenue : $ {{provider.revenue | numberFormat}}</div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+    <div class="row ">
+
+        <div class="col-xxl-6">
+
+            <!-- <app-sessions-by-countries></app-sessions-by-countries> -->
+
+            <mat-card class="mb-25 tagus-card">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Top Stores (by Revenue)</h5>
+                    <div class="d-inline-block" *ngIf="filter12.startDate&&filter12.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter12.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter12.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                            [matMenuTriggerFor]="monthMenu12">
+                            {{filter12.name}}
+                        </button>
+                        <mat-form-field appearance="fill" class="example-full-width dd">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker12">
+                                <input matStartDate placeholder="Start date" [(ngModel)]="filter12.startDate"
+                                    (dateChange)=" filter12.startDate=$event.value ; onDateRangeSelection($event);">
+                                <input matEndDate placeholder="End date" [(ngModel)]="filter12.endDate"
+                                    (dateChange)="filter12.endDate=$event.value ;onFilter12(filter12)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker12"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker12></mat-date-range-picker>
+                        </mat-form-field>
+
+                    </div>
+
+                    <mat-menu #monthMenu12="matMenu" class="monthMenu">
+                        <button mat-menu-item type="button" class="bg-transparent border-none"
+                            *ngFor="let item of filter_object">
+                            <div *ngIf="item.value != 5 " (click)="onFilter12(item)">{{item.name}} </div>
+                            <div *ngIf="item.value == 5 "
+                                (click)="filter12.startDate='';filter12.endDate='';picker12.open()"> {{item.name}}
+                            </div>
+                        </button>
+
+
+                    </mat-menu>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <ngx-skeleton-loader class="chart sessionsByCountriesChart" *ngIf="!Top_stores.load"
+                        [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                    <div class="chart sessionsByCountriesChart" *ngIf="Top_stores.load">
+                        <apx-chart [series]="chartOptions13?.series!" [chart]="chartOptions13?.chart!"
+                            [dataLabels]="chartOptions13?.dataLabels!" [plotOptions]="chartOptions13?.plotOptions!"
+                            [yaxis]="chartOptions13?.yaxis!" [legend]="chartOptions13?.legend!"
+                            [fill]="chartOptions13?.fill!" [stroke]="chartOptions13?.stroke!"
+                            [tooltip]="chartOptions13?.tooltip!" [xaxis]="chartOptions13?.xaxis!"
+                            [colors]="chartOptions13?.colors!" [grid]="chartOptions13?.grid!"></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+        <div class="col-xxl-6">
+
+
+            <mat-card class="mb-25 tagus-card">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Top Stores (by Order)</h5>
+                    <div class="d-inline-block" *ngIf="filter15.startDate&&filter15.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter15.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter15.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                            [matMenuTriggerFor]="monthMenu15">
+                            {{filter15.name}}
+                        </button>
+                        <mat-form-field appearance="fill" class="example-full-width dd">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker15">
+                                <input matStartDate placeholder="Start date" [(ngModel)]="filter15.startDate"
+                                    (dateChange)=" filter15.startDate=$event.value ; onDateRangeSelection($event);">
+                                <input matEndDate placeholder="End date" [(ngModel)]="filter15.endDate"
+                                    (dateChange)="filter15.endDate=$event.value ;onFilter15(filter15)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker15"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker15></mat-date-range-picker>
+                        </mat-form-field>
+
+                    </div>
+
+                    <mat-menu #monthMenu15="matMenu" class="monthMenu">
+                        <button mat-menu-item type="button" class="bg-transparent border-none"
+                            *ngFor="let item of filter_object">
+                            <div *ngIf="item.value != 5 " (click)="onFilter15(item)">{{item.name}} </div>
+                            <div *ngIf="item.value == 5 "
+                                (click)="filter15.startDate='';filter15.endDate='';picker15.open()"> {{item.name}}
+                            </div>
+                        </button>
+
+
+                    </mat-menu>
+                </mat-card-header>
+                <mat-card-content>
+                    <ngx-skeleton-loader class="chart sessionsByCountriesChart" *ngIf="!Top_store_order.load"
+                        [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                    <div class="chart sessionsByCountriesChart" *ngIf="Top_store_order.load">
+                        <apx-chart [series]="chartOptions15?.series!" [chart]="chartOptions15?.chart!"
+                            [dataLabels]="chartOptions15?.dataLabels!" [plotOptions]="chartOptions15?.plotOptions!"
+                            [yaxis]="chartOptions15?.yaxis!" [legend]="chartOptions15?.legend!"
+                            [fill]="chartOptions15?.fill!" [stroke]="chartOptions15?.stroke!"
+                            [tooltip]="chartOptions15?.tooltip!" [xaxis]="chartOptions15?.xaxis!"
+                            [colors]="chartOptions15?.colors!" [grid]="chartOptions15?.grid!"></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <!-- <app-sessions-by-countries></app-sessions-by-countries> -->
+        </div>
+        <div class="col-xxl-6">
+
+
+            <mat-card class="mb-25 tagus-card audienceOverview-box ">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Average Delivery Time </h5>
+
+                    <div class="d-inline-block" *ngIf="filter5.startDate&&filter5.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter5.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter5.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                            [matMenuTriggerFor]="monthMenu5">
+                            {{filter5.name}}
+                        </button>
+                        <mat-form-field appearance="fill" class="example-full-width dd">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker5">
+                                <input matStartDate placeholder="Start date" [(ngModel)]="filter5.startDate"
+                                    (dateChange)=" filter5.startDate=$event.value ; onDateRangeSelection($event);">
+                                <input matEndDate placeholder="End date" [(ngModel)]="filter5.endDate"
+                                    (dateChange)="filter5.endDate=$event.value ;onFilter5(filter5)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker5"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker5></mat-date-range-picker>
+                        </mat-form-field>
+
+                    </div>
+
+                    <mat-menu #monthMenu5="matMenu" class="monthMenu">
+                        <button mat-menu-item type="button" class="bg-transparent border-none"
+                            *ngFor="let item of filter_object">
+                            <div *ngIf="item.value != 5 " (click)="onFilter5(item)">{{item.name}} </div>
+                            <div *ngIf="item.value == 5 "
+                                (click)="filter5.startDate='';filter5.endDate='';picker5.open()"> {{item.name}} </div>
+                        </button>
+
+
+                    </mat-menu>
+                </mat-card-header>
+                <mat-card-content>
+                    <ngx-skeleton-loader class="chart audienceOverviewChart" *ngIf="!Average_delivery_time.load"
+                        [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                    <div class="chart audienceOverviewChart" *ngIf="Average_delivery_time.load">
+                        <apx-chart [series]="chartOptions6?.series!" [chart]="chartOptions6?.chart!"
+                            [dataLabels]="chartOptions6?.dataLabels!" [plotOptions]="chartOptions6?.plotOptions!"
+                            [yaxis]="chartOptions6?.yaxis!" [legend]="chartOptions6?.legend!"
+                            [fill]="chartOptions6?.fill!" [stroke]="chartOptions6?.stroke!"
+                            [tooltip]="chartOptions6?.tooltip!" [xaxis]="chartOptions6?.xaxis!"
+                            [colors]="chartOptions6?.colors!" [grid]="chartOptions6?.grid!"></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+
+
+        <div class="col-xxl-6">
+
+            <mat-card class="mb-25 tagus-card audienceOverview-box">
+                <mat-card-header class="border-bottom">
+                    <h5 class="mb-0">Average Order Value </h5>
+                    <div class="d-inline-block" *ngIf="filter6.startDate&&filter6.endDate">
+
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter6.startDate | date: 'dd MMM yyyy' }} -
+                        </div>
+
+                        <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                            {{ filter6.endDate | date: 'dd MMM yyyy' }}
+                        </div>
+                    </div>
+                    <div>
+                        <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                            [matMenuTriggerFor]="monthMenu6">
+                            {{filter6.name}}
+                        </button>
+                        <mat-form-field appearance="fill" class="example-full-width dd">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker6">
+                                <input matStartDate placeholder="Start date" [(ngModel)]="filter6.startDate"
+                                    (dateChange)=" filter6.startDate=$event.value ; onDateRangeSelection($event);">
+                                <input matEndDate placeholder="End date" [(ngModel)]="filter6.endDate"
+                                    (dateChange)="filter6.endDate=$event.value ;onFilter6(filter6)">
+                            </mat-date-range-input>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker6"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker6></mat-date-range-picker>
+                        </mat-form-field>
+
+                    </div>
+
+                    <mat-menu #monthMenu6="matMenu" class="monthMenu">
+                        <button mat-menu-item type="button" class="bg-transparent border-none"
+                            *ngFor="let item of filter_object">
+                            <div *ngIf="item.value != 5 " (click)="onFilter6(item)">{{item.name}} </div>
+                            <div *ngIf="item.value == 5 "
+                                (click)="filter6.startDate='';filter6.endDate='';picker6.open()"> {{item.name}} </div>
+                        </button>
+
+
+                    </mat-menu>
+                </mat-card-header>
+                <mat-card-content>
+                    <ngx-skeleton-loader class="chart audienceOverviewChart" *ngIf="!Average_order_amount.load"
+                        [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                    </ngx-skeleton-loader>
+                    <div class="chart audienceOverviewChart" *ngIf="Average_order_amount.load">
+                        <apx-chart [series]="chartOptions2?.series!" [chart]="chartOptions2?.chart!"
+                            [dataLabels]="chartOptions2?.dataLabels!" [plotOptions]="chartOptions2?.plotOptions!"
+                            [yaxis]="chartOptions2?.yaxis!" [legend]="chartOptions2?.legend!"
+                            [fill]="chartOptions2?.fill!" [stroke]="chartOptions2?.stroke!"
+                            [tooltip]="chartOptions2?.tooltip!" [xaxis]="chartOptions2?.xaxis!"
+                            [colors]="chartOptions2?.colors!" [grid]="chartOptions2?.grid!"></apx-chart>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+
+
+
+    </div>
+
+    <div class="col-xxl-6">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Delivery Performance</h5>
+                <div class="d-inline-block" *ngIf="filter7.startDate&&filter7.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter7.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter7.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu7">
+                        {{filter7.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker7">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter7.startDate"
+                                (dateChange)=" filter7.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter7.endDate"
+                                (dateChange)="filter7.endDate=$event.value ;onFilter7(filter7)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker7"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker7></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu7="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter7(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter7.startDate='';filter7.endDate='';picker7.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <ngx-skeleton-loader class="chart salesAnalyticsChart" *ngIf="!Delivery_time.load"
+                    [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <div class="chart salesAnalyticsChart" *ngIf="Delivery_time.load">
+                    <apx-chart [series]="chartOptions5?.series!" [chart]="chartOptions5?.chart!"
+                        [dataLabels]="chartOptions5?.dataLabels!" [plotOptions]="chartOptions5?.plotOptions!"
+                        [responsive]="chartOptions5?.responsive!" [xaxis]="chartOptions5?.xaxis!"
+                        [grid]="chartOptions5?.grid!" [yaxis]="chartOptions5?.yaxis!" [legend]="chartOptions5?.legend!"
+                        [colors]="chartOptions5?.colors!" [fill]="chartOptions5?.fill!"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+    <div class="col-xxl-6">
+        <mat-card class="mb-25 tagus-card">
+            <mat-card-header class="border-bottom">
+                <h5 class="mb-0">Order Preparation Performance</h5>
+                <div class="d-inline-block" *ngIf="filter8.startDate&&filter8.endDate">
+
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter8.startDate | date: 'dd MMM yyyy' }} -
+                    </div>
+
+                    <div class="date-btn main-color fw-semibold position-relative border-0  ">
+                        {{ filter8.endDate | date: 'dd MMM yyyy' }}
+                    </div>
+                </div>
+                <div>
+                    <button type="button" mat-button class="position-relative btn bg-transparent border-none"
+                        [matMenuTriggerFor]="monthMenu8">
+                        {{filter8.name}}
+                    </button>
+                    <mat-form-field appearance="fill" class="example-full-width dd">
+                        <mat-label>Enter a date range</mat-label>
+                        <mat-date-range-input [rangePicker]="picker8">
+                            <input matStartDate placeholder="Start date" [(ngModel)]="filter8.startDate"
+                                (dateChange)=" filter8.startDate=$event.value ; onDateRangeSelection($event);">
+                            <input matEndDate placeholder="End date" [(ngModel)]="filter8.endDate"
+                                (dateChange)="filter8.endDate=$event.value ;onFilter8(filter8)">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker8"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker8></mat-date-range-picker>
+                    </mat-form-field>
+
+                </div>
+
+                <mat-menu #monthMenu8="matMenu" class="monthMenu">
+                    <button mat-menu-item type="button" class="bg-transparent border-none"
+                        *ngFor="let item of filter_object">
+                        <div *ngIf="item.value != 5 " (click)="onFilter8(item)">{{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="filter8.startDate='';filter8.endDate='';picker8.open()">
+                            {{item.name}} </div>
+                    </button>
+
+
+                </mat-menu>
+            </mat-card-header>
+            <mat-card-content>
+                <ngx-skeleton-loader class="chart salesAnalyticsChart" *ngIf="!Preparation_time.load"
+                    [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
+                <div class="chart salesAnalyticsChart" *ngIf="Preparation_time.load">
+                    <apx-chart [series]="chartOptions4?.series!" [chart]="chartOptions4?.chart!"
+                        [dataLabels]="chartOptions4?.dataLabels!" [plotOptions]="chartOptions4?.plotOptions!"
+                        [responsive]="chartOptions4?.responsive!" [xaxis]="chartOptions4?.xaxis!"
+                        [grid]="chartOptions4?.grid!" [yaxis]="chartOptions4?.yaxis!" [legend]="chartOptions4?.legend!"
+                        [colors]="chartOptions4?.colors!" [fill]="chartOptions4?.fill!"></apx-chart>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+
+    </div>
+
+
+
+
+
+
+</div>
