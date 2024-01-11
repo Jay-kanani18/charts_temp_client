@@ -113,14 +113,14 @@ export class AdminComponent {
                             this.generalService.selected_currency = this.generalService.country_detail[0].currency_sign
                             // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
                             console.log(this.generalService.country_detail);
-                            
+
                         }
                     })
-                    
+
                 } else {
                     const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
                     this.generalService.selected_currency = country[0].currency_sign
-            
+
                 }
 
 
@@ -279,7 +279,7 @@ export class AdminComponent {
         provider: { name: '', rating: 0, count: 0 },
         load: false
     }
-    
+
     Preparation_time: any = {
         months: [],
         ontime_count: [],
@@ -502,7 +502,7 @@ export class AdminComponent {
 
         this.filter1 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -510,8 +510,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter1.name = "Custom"
-              this.filter1.value = 5
+            this.filter1.name = "Custom"
+            this.filter1.value = 5
 
         }
         params.country_id = this.selected_country
@@ -527,7 +527,7 @@ export class AdminComponent {
     onFilter2(item: any) {
         this.filter2 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -535,8 +535,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter2.name = "Custom"
-              this.filter2.value = 5
+            this.filter2.name = "Custom"
+            this.filter2.value = 5
 
         }
         params.country_id = this.selected_country
@@ -550,7 +550,7 @@ export class AdminComponent {
     onFilter3(item: any) {
         this.filter3 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -558,8 +558,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter3.name = "Custom"
-              this.filter3.value = 5
+            this.filter3.name = "Custom"
+            this.filter3.value = 5
 
         }
         params.country_id = this.selected_country
@@ -575,7 +575,7 @@ export class AdminComponent {
         this.filter4 = item
 
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -583,10 +583,10 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-            
- 
+
+
             this.filter4.name = "Custom"
-         
+
             this.filter4.value = 5
         }
         params.country_id = this.selected_country
@@ -600,7 +600,7 @@ export class AdminComponent {
     onFilter5(item: any) {
         this.filter5 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -608,8 +608,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter5.name = "Custom"
-              this.filter5.value = 5
+            this.filter5.name = "Custom"
+            this.filter5.value = 5
 
         }
         params.country_id = this.selected_country
@@ -623,7 +623,7 @@ export class AdminComponent {
     onFilter6(item: any) {
         this.filter6 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -631,8 +631,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter6.name = "Custom"
-              this.filter6.value = 5
+            this.filter6.name = "Custom"
+            this.filter6.value = 5
 
         }
         params.country_id = this.selected_country
@@ -646,7 +646,7 @@ export class AdminComponent {
     onFilter7(item: any) {
         this.filter7 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -654,8 +654,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter7.name = "Custom"
-              this.filter7.value = 5
+            this.filter7.name = "Custom"
+            this.filter7.value = 5
 
         }
         params.country_id = this.selected_country
@@ -669,7 +669,7 @@ export class AdminComponent {
     onFilter8(item: any) {
         this.filter8 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -677,8 +677,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter8.name = "Custom"
-              this.filter8.value = 5
+            this.filter8.name = "Custom"
+            this.filter8.value = 5
 
         }
         params.country_id = this.selected_country
@@ -692,7 +692,7 @@ export class AdminComponent {
     onFilter9(item: any) {
         this.filter9 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -700,8 +700,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter9.name = "Custom"
-              this.filter9.value = 5
+            this.filter9.name = "Custom"
+            this.filter9.value = 5
 
         }
         params.country_id = this.selected_country
@@ -715,7 +715,7 @@ export class AdminComponent {
     onFilter10(item: any) {
         this.filter10 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -723,8 +723,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter10.name = "Custom"
-              this.filter10.value = 5
+            this.filter10.name = "Custom"
+            this.filter10.value = 5
 
         }
         params.country_id = this.selected_country
@@ -738,7 +738,7 @@ export class AdminComponent {
     onFilter11(item: any) {
         this.filter11 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -746,8 +746,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter11.name = "Custom"
-              this.filter11.value = 5
+            this.filter11.name = "Custom"
+            this.filter11.value = 5
 
         }
         params.country_id = this.selected_country
@@ -761,7 +761,7 @@ export class AdminComponent {
     onFilter12(item: any) {
         this.filter12 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -769,8 +769,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter12.name = "Custom"
-              this.filter12.value = 5
+            this.filter12.name = "Custom"
+            this.filter12.value = 5
 
         }
         params.country_id = this.selected_country
@@ -784,7 +784,7 @@ export class AdminComponent {
     onFilter13(item: any) {
         this.filter13 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -792,8 +792,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter13.name = "Custom"
-              this.filter13.value = 5
+            this.filter13.name = "Custom"
+            this.filter13.value = 5
 
         }
         params.country_id = this.selected_country
@@ -808,7 +808,7 @@ export class AdminComponent {
     onFilter14(item: any) {
         this.filter14 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -816,9 +816,9 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-        this.filter14.name = "Custom"
-         this.filter14.value = 5
-            
+            this.filter14.name = "Custom"
+            this.filter14.value = 5
+
 
         }
 
@@ -834,7 +834,7 @@ export class AdminComponent {
     onFilter15(item: any) {
         this.filter15 = item
         let params: any = {}
-        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+        if ((item.startDate && !item.endDate) || (!item.startDate && item.endDate)) {
             return
 
         }
@@ -842,8 +842,8 @@ export class AdminComponent {
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-             this.filter15.name = "Custom"
-              this.filter15.value = 5
+            this.filter15.name = "Custom"
+            this.filter15.value = 5
 
         }
         params.country_id = this.selected_country
@@ -1274,6 +1274,7 @@ export class AdminComponent {
                             show: false
                         }
                     },
+                    
                     dataLabels: {
                         enabled: false
                     },
@@ -1286,6 +1287,24 @@ export class AdminComponent {
                                 highlightDataSeries: true
                             }
                         }
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
+                                // Check if it's an item or modifier based on seriesIndex
+                          
+                                    let total = series.reduce(function (acc:any, num:any) {
+                                        return +acc + +num;
+                                    }, 0);
+    
+                                    let  percentage = ((value/ total)*100 ).toFixed(1)
+                                    return `${value} (${percentage}%)`;
+                            },
+                        },
+
                     },
                     xaxis: {
                         type: "category",
@@ -1663,6 +1682,22 @@ export class AdminComponent {
                             horizontal: false
                         }
                     },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
+                                let total = series.reduce(function (acc:any, num:any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let  percentage = ((value/ total)*100 ).toFixed(1)
+                                return `${value} (${percentage}%)`;
+                            },
+                        },
+
+                    },
 
                     xaxis: {
                         type: "category",
@@ -1775,6 +1810,24 @@ export class AdminComponent {
                         bar: {
                             horizontal: false
                         }
+                    },
+                    tooltip:{
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
+                                
+
+
+                                let total = series.reduce(function (acc:any, num:any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let  percentage = ((value/ total)*100 ).toFixed(1)
+                                return `${value} (${percentage}%)`;
+                            },
+                        },
                     },
                     xaxis: {
                         type: "category",
@@ -2051,7 +2104,7 @@ export class AdminComponent {
                     dataLabels: {
                         enabled: false
                     },
-                    
+
                     // colors: [
                     //     "",
                     // ],

@@ -498,7 +498,7 @@
                         [responsive]="chartOptions12?.responsive!" [xaxis]="chartOptions12?.xaxis!"
                         [grid]="chartOptions12?.grid!" [yaxis]="chartOptions12?.yaxis!"
                         [legend]="chartOptions12?.legend!" [colors]="chartOptions12?.colors!"
-                        [fill]="chartOptions12?.fill!"></apx-chart>
+                        [fill]="chartOptions12?.fill!" [tooltip]="chartOptions12?.tooltip!"></apx-chart>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -1224,7 +1224,7 @@
                         [dataLabels]="chartOptions5?.dataLabels!" [plotOptions]="chartOptions5?.plotOptions!"
                         [responsive]="chartOptions5?.responsive!" [xaxis]="chartOptions5?.xaxis!"
                         [grid]="chartOptions5?.grid!" [yaxis]="chartOptions5?.yaxis!" [legend]="chartOptions5?.legend!"
-                        [colors]="chartOptions5?.colors!" [fill]="chartOptions5?.fill!"></apx-chart>
+                        [colors]="chartOptions5?.colors!" [tooltip]="chartOptions5?.tooltip!" [fill]="chartOptions5?.fill!"></apx-chart>
                 </div>
             </mat-card-content>
         </mat-card>
@@ -1294,7 +1294,7 @@
                 <div class="chart salesAnalyticsChart" *ngIf="Preparation_time.load && Preparation_time.months.length > 0">
                     <apx-chart [series]="chartOptions4?.series!" [chart]="chartOptions4?.chart!"
                         [dataLabels]="chartOptions4?.dataLabels!" [plotOptions]="chartOptions4?.plotOptions!"
-                        [responsive]="chartOptions4?.responsive!" [xaxis]="chartOptions4?.xaxis!"
+                        [responsive]="chartOptions4?.responsive!" [xaxis]="chartOptions4?.xaxis!" [tooltip]="chartOptions4?.tooltip!"
                         [grid]="chartOptions4?.grid!" [yaxis]="chartOptions4?.yaxis!" [legend]="chartOptions4?.legend!"
                         [colors]="chartOptions4?.colors!" [fill]="chartOptions4?.fill!"></apx-chart>
                 </div>

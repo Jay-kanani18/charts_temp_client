@@ -16,7 +16,7 @@ export class SidebarComponent {
 
     isToggled = false;
 
-    user_id :any = "6583e077beb7fcf1f6ef7827"
+    user_id :any = "659fac2e37e9286a306d0ba6"
 
     catagory_list:any = []
 
@@ -38,7 +38,6 @@ export class SidebarComponent {
 
     onCatagory(event:any){
         event.stopPropagation();
-        console.log("work");
         this.router.navigate(['/admin'])
         
     }
@@ -64,11 +63,9 @@ export class SidebarComponent {
 
         this.chartsServiceService.getCatagory(this.user_id).subscribe({
             next:(data:any)=>{
-                console.log(data);
 
                 this.catagory_list = data.data
             },error:(error)=>{
-                console.log(error);
             }
         })
     }

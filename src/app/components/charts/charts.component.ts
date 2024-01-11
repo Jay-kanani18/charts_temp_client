@@ -54,7 +54,7 @@ export class ChartsComponent {
     chart: any;
     charts: any
     full_screen_id: any
-    user_id: any = "6583e077beb7fcf1f6ef7827"
+    user_id: any = "659fac2e37e9286a306d0ba6"
     now_date: any = new Date()
     yesterday_date: any = new Date()
     subcatagory_id: any = null
