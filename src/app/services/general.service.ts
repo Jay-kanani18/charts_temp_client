@@ -5,6 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class GeneralService {
   selected_country:any = null
+  selected_currency:any = null
+  all_countries :any=[]
+  country_detail:any = {}
 
   constructor() { 
 

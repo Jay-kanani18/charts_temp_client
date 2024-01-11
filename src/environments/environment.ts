@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   URL : 'http://192.168.0.213:5000',
+  // URL : 'http://d536-103-190-6-162.ngrok-free.app',
   
 };
 

@@ -26,9 +26,9 @@
                     <mat-form-field appearance="fill" class="example-full-width dd">
                         <mat-label>Enter a date range</mat-label>
                         <mat-date-range-input [rangePicker]="picker14">
-                            <input matStartDate placeholder="Start date" [(ngModel)]="filter14.startDate"
+                            <input matStartDate placeholder="Start date" 
                                 (dateChange)=" filter14.startDate=$event.value ; onDateRangeSelection($event);">
-                            <input matEndDate placeholder="End date" [(ngModel)]="filter14.endDate"
+                            <input matEndDate placeholder="End date" 
                                 (dateChange)="filter14.endDate=$event.value ;onFilter14(filter14)">
                         </mat-date-range-input>
                         <mat-datepicker-toggle matIconSuffix [for]="picker14"></mat-datepicker-toggle>
@@ -49,8 +49,7 @@
                         *ngFor="let item of filter_object">
 
                         <div *ngIf="item.value != 5 " (click)="onFilter14(item)">{{item.name}} </div>
-                        <div *ngIf="item.value == 5 "
-                            (click)="filter14.startDate='';filter14.endDate='';picker14.open()"> {{item.name}} </div>
+                        <div *ngIf="item.value == 5 " (click)="picker14.open()"> {{item.name}} </div>
                     </button>
 
                 </mat-menu>
@@ -58,7 +57,7 @@
 
             <div class="row">
 
-                <div class="col-md-4">
+                <div class="col-xxl-4">
                     <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
                         [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
                         *ngIf="!bussiness_detail.load">
@@ -67,7 +66,8 @@
                         <div class="d-flex justify-content-space-between align-items-center">
 
                             <div class="title">
-                                <h3>${{bussiness_detail.total_revenue | numberFormat}}</h3>
+                                <h3>{{generalService.selected_currency}} {{bussiness_detail.total_revenue |
+                                    numberFormat}}</h3>
                                 <span class="d-block gray-color">Total Revenue</span>
                             </div>
                             <div class="icon">
@@ -78,7 +78,7 @@
                         </p> -->
                     </mat-card>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xxl-4">
                     <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
                         [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
                         *ngIf="!bussiness_detail.load">
@@ -97,7 +97,7 @@
                         </p> -->
                     </mat-card>
                 </div>
-                <div class="col-md-4">
+                <div class="col-xxl-4">
                     <ngx-skeleton-loader class="single-stats-box tagus-card mb-25"
                         [theme]="{height: '100px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }"
                         *ngIf="!bussiness_detail.load">
@@ -176,7 +176,18 @@
                 </ngx-skeleton-loader>
                 <!-- </div> -->
 
-                <div class="chart audienceOverviewChart" *ngIf="top_sales.load">
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 250px;" *ngIf="(top_sales.load == true) && (top_sales?.items?.length <= 0)">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                </div>
+
+                <div class="chart audienceOverviewChart" *ngIf="top_sales.load && (this.top_sales?.items?.length>0)">
                     <apx-chart [series]="chartOptions9?.series!" [chart]="chartOptions9?.chart!"
                         [dataLabels]="chartOptions9?.dataLabels!" [plotOptions]="chartOptions9?.plotOptions!"
                         [yaxis]="chartOptions9?.yaxis!" [legend]="chartOptions9?.legend!" [fill]="chartOptions9?.fill!"
@@ -252,8 +263,18 @@
             </mat-card-header>
 
 
+            <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                style="height: 250px;" *ngIf="(platform_used.load == true) && (platform_used?.data?.length <= 0)">
+                          <div class="text-center">
 
-            <div class="chart1" id="chart3" *ngIf="platform_used.load">
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+            </div>
+
+            <div class="chart1" id="chart3" *ngIf="platform_used.load && (platform_used?.data?.length > 0)">
 
             </div>
 
@@ -374,17 +395,30 @@
             </mat-card-header>
             <mat-card-content>
 
+                <ngx-skeleton-loader *ngIf="!peak_hours.load && peak_hours?.data?.values > 0"
+                    [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
+                </ngx-skeleton-loader>
 
-                <div class="chart">
+
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 350px ;" *ngIf="(peak_hours.load == true) && (peak_hours.values.length <= 0)">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+          
+      
+
+                </div>
+
+                <div class="chart" *ngIf="peak_hours.load && peak_hours.values.length> 0">
 
 
-                    <ngx-skeleton-loader *ngIf="!peak_hours.load"
-                        [theme]="{minHeight: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
-                    </ngx-skeleton-loader>
-                    <apx-chart *ngIf="peak_hours.load" [series]="chartOptions11?.series!"
-                        [chart]="chartOptions11?.chart!" [labels]="chartOptions11?.labels!"
-                        [plotOptions]="chartOptions11?.plotOptions!" [fill]="chartOptions11?.fill!"
-                        [grid]="chartOptions11?.grid!" [legend]="chartOptions11?.legend!"
+
+                    <apx-chart [series]="chartOptions11?.series!" [chart]="chartOptions11?.chart!"
+                        [labels]="chartOptions11?.labels!" [plotOptions]="chartOptions11?.plotOptions!"
+                        [fill]="chartOptions11?.fill!" [grid]="chartOptions11?.grid!" [legend]="chartOptions11?.legend!"
                         [colors]="chartOptions11?.colors!" [stroke]="chartOptions11?.stroke!"
                         [responsive]="chartOptions11?.responsive!"></apx-chart>
                 </div>
@@ -447,7 +481,18 @@
                 <ngx-skeleton-loader *ngIf="!order_type.load"
                     [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                 </ngx-skeleton-loader>
-                <div class="chart salesAnalyticsChart" *ngIf="order_type.load">
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 350px ;" *ngIf="(order_type.load == true) && order_type.normal.length <=0">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                </div>
+
+                <div class="chart salesAnalyticsChart" *ngIf="order_type.load && order_type.normal.length >0">
                     <apx-chart [series]="chartOptions12?.series!" [chart]="chartOptions12?.chart!"
                         [dataLabels]="chartOptions12?.dataLabels!" [plotOptions]="chartOptions12?.plotOptions!"
                         [responsive]="chartOptions12?.responsive!" [xaxis]="chartOptions12?.xaxis!"
@@ -518,6 +563,18 @@
                     <ngx-skeleton-loader *ngIf="!Ratings.load"
                         [theme]="{height: '300px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                     </ngx-skeleton-loader>
+                </div>
+
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 350px ;"
+                    *ngIf="(Ratings.load == true) && Ratings.store.count <=  0 &&  Ratings.provider.count <=  0 && Ratings.user.count <= 0">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
                 </div>
                 <div class="col-md-12" *ngIf="Ratings.load && Ratings.store.count > 0">
                     <mat-card class="single-stats-box tagus-card ">
@@ -628,7 +685,18 @@
                 <ngx-skeleton-loader *ngIf="!top_users.load"
                     [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                 </ngx-skeleton-loader>
-                <div class="messages-list" *ngIf="top_users.load">
+
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 450px ;" *ngIf="(top_users.load == true) && top_users.list.length <=0">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                </div>
+                <div class="messages-list" *ngIf="top_users.load  && top_users.list.length >0">
                     <div class="single-message position-relative d-flex align-items-center justify-content-space-between"
                         *ngFor="let user of top_users.list">
                         <div class="content d-flex align-items-center">
@@ -644,7 +712,8 @@
                         <div class="info text-end">
                             <div class="d-flex flex-column align-items-center justify-content-end">
                                 <div class="revenue">Orders : {{user.count}}</div>
-                                <div class="badge1">Revenue : $ {{user.revenue | numberFormat}}</div>
+                                <div class="badge1">Revenue : {{generalService.selected_currency}} {{user.revenue |
+                                    numberFormat}}</div>
 
                             </div>
                         </div>
@@ -742,7 +811,17 @@
                 <ngx-skeleton-loader *ngIf="!top_providers.load"
                     [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                 </ngx-skeleton-loader>
-                <div class="messages-list" *ngIf="top_providers.load">
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 450px ;" *ngIf="(top_providers.load == true) && top_providers.list.length <=0">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                </div>
+                <div class="messages-list" *ngIf="top_providers.load && top_providers.list.length >0">
                     <div class="single-message position-relative d-flex align-items-center justify-content-space-between"
                         *ngFor="let provider of top_providers.list">
                         <div class="content d-flex align-items-center">
@@ -759,7 +838,8 @@
                         <div class="info text-end">
                             <div class="d-flex flex-column align-items-center justify-content-end">
                                 <div class="revenue">Orders : {{provider.count}}</div>
-                                <div class="badge1">Revenue : $ {{provider.revenue | numberFormat}}</div>
+                                <div class="badge1">Revenue : {{generalService.selected_currency}} {{provider.revenue |
+                                    numberFormat}}</div>
 
                             </div>
                         </div>
@@ -826,7 +906,17 @@
                     <ngx-skeleton-loader class="chart sessionsByCountriesChart" *ngIf="!Top_stores.load"
                         [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                     </ngx-skeleton-loader>
-                    <div class="chart sessionsByCountriesChart" *ngIf="Top_stores.load">
+                    <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                        style="height: 450px ;" *ngIf="(Top_stores.load == true) && Top_stores.value.length <=0">
+                                  <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                    </div>
+                    <div class="chart sessionsByCountriesChart" *ngIf="Top_stores.load && Top_stores.value.length >0">
                         <apx-chart [series]="chartOptions13?.series!" [chart]="chartOptions13?.chart!"
                             [dataLabels]="chartOptions13?.dataLabels!" [plotOptions]="chartOptions13?.plotOptions!"
                             [yaxis]="chartOptions13?.yaxis!" [legend]="chartOptions13?.legend!"
@@ -890,7 +980,19 @@
                     <ngx-skeleton-loader class="chart sessionsByCountriesChart" *ngIf="!Top_store_order.load"
                         [theme]="{height: '450px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                     </ngx-skeleton-loader>
-                    <div class="chart sessionsByCountriesChart" *ngIf="Top_store_order.load">
+                    <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                        style="height: 450px ;"
+                        *ngIf="(Top_store_order.load == true) && Top_store_order.value.length <=0">
+                                  <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                    </div>
+                    <div class="chart sessionsByCountriesChart"
+                        *ngIf="Top_store_order.load && Top_store_order.value.length >0">
                         <apx-chart [series]="chartOptions15?.series!" [chart]="chartOptions15?.chart!"
                             [dataLabels]="chartOptions15?.dataLabels!" [plotOptions]="chartOptions15?.plotOptions!"
                             [yaxis]="chartOptions15?.yaxis!" [legend]="chartOptions15?.legend!"
@@ -954,7 +1056,18 @@
                     <ngx-skeleton-loader class="chart audienceOverviewChart" *ngIf="!Average_delivery_time.load"
                         [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                     </ngx-skeleton-loader>
-                    <div class="chart audienceOverviewChart" *ngIf="Average_delivery_time.load">
+                    <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                    style="height: 350px ;"
+                    *ngIf="(Average_delivery_time.load == true) && Average_delivery_time.value.length <=0">
+                              <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+    
+                </div>
+                    <div class="chart audienceOverviewChart" *ngIf="Average_delivery_time.load &&  Average_delivery_time.value.length >0">
                         <apx-chart [series]="chartOptions6?.series!" [chart]="chartOptions6?.chart!"
                             [dataLabels]="chartOptions6?.dataLabels!" [plotOptions]="chartOptions6?.plotOptions!"
                             [yaxis]="chartOptions6?.yaxis!" [legend]="chartOptions6?.legend!"
@@ -1018,7 +1131,19 @@
                     <ngx-skeleton-loader class="chart audienceOverviewChart" *ngIf="!Average_order_amount.load"
                         [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                     </ngx-skeleton-loader>
-                    <div class="chart audienceOverviewChart" *ngIf="Average_order_amount.load">
+                    <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                        style="height: 350px ;"
+                        *ngIf="(Average_order_amount.load == true) && Average_order_amount.value.length <=0">
+                                  <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+                    </div>
+                    <div class="chart audienceOverviewChart"
+                        *ngIf="Average_order_amount.load && Average_order_amount.value.length >0">
                         <apx-chart [series]="chartOptions2?.series!" [chart]="chartOptions2?.chart!"
                             [dataLabels]="chartOptions2?.dataLabels!" [plotOptions]="chartOptions2?.plotOptions!"
                             [yaxis]="chartOptions2?.yaxis!" [legend]="chartOptions2?.legend!"
@@ -1083,7 +1208,18 @@
                 <ngx-skeleton-loader class="chart salesAnalyticsChart" *ngIf="!Delivery_time.load"
                     [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                 </ngx-skeleton-loader>
-                <div class="chart salesAnalyticsChart" *ngIf="Delivery_time.load">
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                style="height: 350px ;"
+                *ngIf="(Delivery_time.load == true) && Delivery_time.months.length <=0">
+                          <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+            </div>
+                <div class="chart salesAnalyticsChart" *ngIf="Delivery_time.load && Delivery_time.months.length >0">
                     <apx-chart [series]="chartOptions5?.series!" [chart]="chartOptions5?.chart!"
                         [dataLabels]="chartOptions5?.dataLabels!" [plotOptions]="chartOptions5?.plotOptions!"
                         [responsive]="chartOptions5?.responsive!" [xaxis]="chartOptions5?.xaxis!"
@@ -1144,7 +1280,18 @@
                 <ngx-skeleton-loader class="chart salesAnalyticsChart" *ngIf="!Preparation_time.load"
                     [theme]="{height: '350px', background: '#f7f7ff' ,width:'100%', margin:'10px' , borderRadius : '25px' }">
                 </ngx-skeleton-loader>
-                <div class="chart salesAnalyticsChart" *ngIf="Preparation_time.load">
+                <div class="chart audienceOverviewChart d-flex align-items-center justify-content-center"
+                style="height: 350px ;"
+                *ngIf="(Preparation_time.load == true) && Preparation_time.months.length <=0">
+                          <div class="text-center">
+
+                        <img src="../../../../assets/img/empty.jpg" alt="img" width="200px" height="300px">
+                        <h3>Data Not Available</h3>
+                    </div>
+
+
+            </div>
+                <div class="chart salesAnalyticsChart" *ngIf="Preparation_time.load && Preparation_time.months.length > 0">
                     <apx-chart [series]="chartOptions4?.series!" [chart]="chartOptions4?.chart!"
                         [dataLabels]="chartOptions4?.dataLabels!" [plotOptions]="chartOptions4?.plotOptions!"
                         [responsive]="chartOptions4?.responsive!" [xaxis]="chartOptions4?.xaxis!"

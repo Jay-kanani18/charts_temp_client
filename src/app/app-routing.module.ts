@@ -137,7 +137,7 @@ import { ChartsComponent } from './components/charts/charts.component';
 import { AdminComponent } from './components/dashboard/admin/admin.component';
 
 const routes: Routes = [
-    {path: '', component: EcommerceComponent},
+    {path: '',component:AdminComponent},
     {path: 'analytics', component: AnalyticsComponent},
     {path: 'project-management', component: ProjectManagementComponent},
     {path: 'lms-courses', component: LmsCoursesComponent},
@@ -270,6 +270,7 @@ const routes: Routes = [
     {path: 'authentication/confirm-mail', component: ConfirmMailComponent},
     {path: 'authentication/lock-screen', component: LockScreenComponent},
     {path: 'charts/:id', component: ChartsComponent},
+    {path: 'charts/:id/:country', component: ChartsComponent},
     {path: 'admin', component: AdminComponent},
     {path: 'admin/:id', component: AdminComponent},
     // Here add new pages component

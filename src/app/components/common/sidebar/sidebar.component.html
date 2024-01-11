@@ -6,7 +6,7 @@
     [class.hide-sidebar]="themeService.isHideSidebar()"
 >
     <div class="logo bg-white">
-        <a routerLink="/admin" class="d-flex align-items-center ">
+        <a routerLink="/admin" class="d-flex align-items-center text-decoration-none">
             <span class="bg-theme">
 
                 <img src="assets/logo.svg" alt="logo" width="43px">
@@ -81,8 +81,8 @@
                         </mat-expansion-panel-header>
                         <ul class="sidebar-sub-menu" >
                             <li class="  gray-color  text-center">For what?</li>
-                            <li class="sidemenu-item"  *ngFor="let subcatagory of catagory.for_what_Array">
-                                <a routerLink="/charts/{{subcatagory._id}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link" (click)="$event.stopPropagation()">
+                            <li class="sidemenu-item sidemenu-link"  *ngFor="let subcatagory of catagory.for_what_Array">
+                                <a routerLink="/charts/{{subcatagory._id}}/{{generalService.selected_country}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link" (click)="$event.stopPropagation()">
                                    {{subcatagory.name}}
                                 </a>
                             </li>

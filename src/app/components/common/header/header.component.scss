@@ -43,12 +43,13 @@
             color: var(--paragraphColor);
             transition: var(--transition);
 
-            i, img {
+            i,
+            img {
                 left: 0;
                 right: 0;
                 top: 50%;
                 line-height: 1;
-                margin-top: .5px;
+                margin-top: 0.5px;
                 position: absolute;
                 transform: translateY(-50%);
             }
@@ -58,14 +59,14 @@
                 margin: {
                     left: auto;
                     right: auto;
-                };
+                }
             }
         }
         .search-box {
             width: 300px;
 
             .input-search {
-                background-color: #f5F7fa;
+                background-color: #f5f7fa;
                 padding: 0 20px 2px 20px;
                 color: var(--blackColor);
                 outline: 0 !important;
@@ -73,7 +74,7 @@
                 height: 45px;
                 width: 100%;
                 border: 0;
-                
+
                 &::placeholder {
                     color: #a9a9c8;
                     transition: var(--transition);
@@ -120,7 +121,8 @@
                 background-color: #f5f5f9;
                 transition: var(--transition);
 
-                i, img {
+                i,
+                img {
                     left: 0;
                     right: 0;
                     top: 50%;
@@ -136,7 +138,7 @@
                     margin: {
                         left: auto;
                         right: auto;
-                    };
+                    }
                 }
                 &.notification-btn {
                     &::before {
@@ -145,7 +147,7 @@
                         width: 7px;
                         right: 14px;
                         height: 7px;
-                        content: '';
+                        content: "";
                         border-radius: 50%;
                         position: absolute;
                         background: #ff5e6f;
@@ -156,7 +158,7 @@
                         width: 7px;
                         right: 14px;
                         height: 7px;
-                        content: '';
+                        content: "";
                         border-radius: 50%;
                         position: absolute;
                         background: var(--whiteColor);
@@ -173,7 +175,7 @@
                     left: 38px;
                     right: 15px;
                     bottom: 11px;
-                };
+                }
                 i {
                     top: 50%;
                     left: 15px;
@@ -207,7 +209,7 @@
                     font: {
                         size: 16px;
                         family: var(--headingFontFamily);
-                    };
+                    }
                 }
                 &::before {
                     right: 0;
@@ -218,7 +220,7 @@
                     font: {
                         family: flaticon_tagus;
                         weight: 700;
-                    };
+                    }
                 }
             }
             &:last-child {
@@ -242,7 +244,7 @@
         &.sticky {
             left: 25px;
             right: 285px;
-    
+
             &.active {
                 right: 85px;
             }
@@ -280,11 +282,11 @@
             }
             .search-box {
                 width: 300px;
-    
+
                 .input-search {
                     background-color: #1e2227;
                     color: var(--whiteColor);
-                    
+
                     &::placeholder {
                         color: #828690;
                     }
@@ -340,11 +342,11 @@
             }
             .search-box {
                 width: 300px;
-    
+
                 .input-search {
                     background-color: #1e2227;
                     color: var(--whiteColor);
-                    
+
                     &::placeholder {
                         color: #828690;
                     }
@@ -396,13 +398,13 @@
                 margin: {
                     left: 18px;
                     right: 0;
-                };
+                }
             }
             .menu-btn {
                 margin: {
                     right: 0;
                     left: 18px;
-                };
+                }
             }
             .search-box {
                 button {
@@ -413,12 +415,12 @@
         }
         .header-right-side {
             padding-right: 0;
-    
+
             li {
                 margin: {
                     right: 0;
                     left: 15px;
-                };
+                }
                 .btn {
                     &.notification-btn {
                         &::before {
@@ -435,7 +437,7 @@
                     padding: {
                         right: 38px;
                         left: 15px;
-                    };
+                    }
                     i {
                         left: auto;
                         right: 15px;
@@ -446,7 +448,7 @@
                     padding: {
                         left: 20px;
                         right: 57px;
-                    };
+                    }
                     img {
                         left: auto;
                         right: 0;
@@ -460,14 +462,14 @@
                     margin: {
                         right: 0;
                         left: 0;
-                    };
+                    }
                 }
             }
         }
         &.sticky {
             right: 285px;
             left: 25px;
-    
+
             &.active {
                 right: 85px;
                 left: 25px;
@@ -477,7 +479,7 @@
             &.sticky {
                 right: 25px;
                 left: 285px;
-        
+
                 &.active {
                     left: 85px;
                     right: 25px;
@@ -487,7 +489,7 @@
         &.hide-sidebar {
             right: 25px;
             left: 85px;
-    
+
             .header-left-side {
                 .burger-menu {
                     margin-left: 0;
@@ -503,26 +505,26 @@
 @keyframes fadeInDown {
     0% {
         opacity: 0;
-        transform: translate3d(0,-100%,0)
-    } to {
+        transform: translate3d(0, -100%, 0);
+    }
+    to {
         opacity: 1;
-        transform: translateZ(0)
+        transform: translateZ(0);
     }
 }
 
 /* Max width 767px */
-@media only screen and (max-width : 767px) {
-
+@media only screen and (max-width: 767px) {
     .header-area {
         padding: 15px;
-        
+
         .header-left-side {
             justify-content: center;
             margin-bottom: 10px;
 
             .burger-menu {
                 margin-right: 10px;
-    
+
                 span {
                     width: 20px;
                     margin: 5px 0;
@@ -534,13 +536,14 @@
                 margin-right: 10px;
                 font-size: 15px !important;
 
-                img, i {
+                img,
+                i {
                     margin-top: 0;
                 }
             }
             .search-box {
                 width: 175px;
-    
+
                 .input-search {
                     padding: 0 15px 2px 15px;
                     height: 38px;
@@ -553,18 +556,19 @@
         }
         .header-right-side {
             justify-content: center;
-    
+
             li {
                 margin: {
                     left: 4px;
                     right: 4px;
-                };
+                }
                 .btn {
                     width: 38px;
                     height: 38px;
                     font-size: 17px !important;
-    
-                    i, img {
+
+                    i,
+                    img {
                         margin-top: 0;
                     }
                     img {
@@ -584,7 +588,7 @@
                 .profile-btn {
                     font-size: 13px !important;
                     padding: 0 0 0 43px;
-    
+
                     img {
                         width: 35px;
                         height: 35px;
@@ -605,7 +609,7 @@
         &.sticky {
             right: 15px;
             left: 15px;
-    
+
             &.active {
                 left: 15px;
             }
@@ -614,7 +618,7 @@
             &.sticky {
                 right: 15px;
                 left: 15px;
-        
+
                 &.active {
                     right: 15px;
                 }
@@ -643,13 +647,13 @@
                     margin: {
                         right: 0;
                         left: 10px;
-                    };
+                    }
                 }
                 .menu-btn {
                     margin: {
                         right: 0;
                         left: 10px;
-                    };
+                    }
                 }
                 .search-box {
                     button {
@@ -663,7 +667,7 @@
                     margin: {
                         left: 4px;
                         right: 4px;
-                    };
+                    }
                     .btn {
                         &.notification-btn {
                             &::before {
@@ -680,7 +684,7 @@
                         padding: {
                             left: 0;
                             right: 43px;
-                        };
+                        }
                     }
                     &:last-child {
                         margin-right: 3px;
@@ -690,7 +694,7 @@
             &.sticky {
                 right: 15px;
                 left: 15px;
-        
+
                 &.active {
                     left: 15px;
                     right: 15px;
@@ -700,7 +704,7 @@
                 &.sticky {
                     right: 15px;
                     left: 15px;
-            
+
                     &.active {
                         right: 15px;
                         left: 15px;
@@ -710,24 +714,22 @@
             &.hide-sidebar {
                 left: 15px;
                 right: 15px;
-    
+
                 .header-left-side {
                     .burger-menu {
                         margin: {
                             right: 0;
                             left: 10px;
-                        };
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
 /* Min width 576px to Max width 767px */
-@media only screen and (min-width : 576px) and (max-width : 767px) {
-
+@media only screen and (min-width: 576px) and (max-width: 767px) {
     .header-area {
         .header-left-side {
             .burger-menu {
@@ -748,12 +750,12 @@
                 margin: {
                     left: 7px;
                     right: 7px;
-                };
+                }
                 .btn {
                     width: 40px;
                     height: 40px;
                     font-size: 17px !important;
-    
+
                     &.notification-btn {
                         &::before {
                             top: 9px;
@@ -768,7 +770,7 @@
                 .profile-btn {
                     font-size: 13px !important;
                     padding: 0 18px 0 50px;
-    
+
                     img {
                         width: 40px;
                         height: 40px;
@@ -797,13 +799,13 @@
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                 }
                 .menu-btn {
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                 }
             }
             .header-right-side {
@@ -811,7 +813,7 @@
                     margin: {
                         left: 7px;
                         right: 7px;
-                    };
+                    }
                     .btn {
                         &.notification-btn {
                             &::before {
@@ -828,7 +830,7 @@
                         padding: {
                             left: 18px;
                             right: 50px;
-                        };
+                        }
                     }
                     &:last-child {
                         margin-right: 7px;
@@ -841,21 +843,19 @@
                         margin: {
                             right: 0;
                             left: 15px;
-                        };
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
 /* Min width 768px to Max width 991px */
-@media only screen and (min-width : 768px) and (max-width : 991px) {
-
+@media only screen and (min-width: 768px) and (max-width: 991px) {
     .header-area {
         padding: 20px;
-    
+
         .header-left-side {
             .burger-menu {
                 margin-right: 15px;
@@ -865,9 +865,10 @@
                 height: 40px;
                 margin-right: 15px;
                 font-size: 16px !important;
-    
-                i, img {
-                    margin-top: .5px;
+
+                i,
+                img {
+                    margin-top: 0.5px;
                 }
                 img {
                     width: 20px;
@@ -875,7 +876,7 @@
             }
             .search-box {
                 width: 230px;
-    
+
                 .input-search {
                     padding: 0 15px 1px 15px;
                     height: 40px;
@@ -889,14 +890,15 @@
         .header-right-side {
             li {
                 margin-right: 15px;
-    
+
                 .btn {
                     width: 40px;
                     height: 40px;
                     font-size: 16px !important;
-        
-                    i, img {
-                        margin-top: .5px;
+
+                    i,
+                    img {
+                        margin-top: 0.5px;
                     }
                     img {
                         width: 20px;
@@ -914,7 +916,7 @@
                 }
                 .profile-btn {
                     padding: 2px 20px 2px 50px;
-    
+
                     img {
                         width: 40px;
                         height: 40px;
@@ -929,7 +931,7 @@
         &.sticky {
             right: 25px;
             left: 25px;
-    
+
             &.active {
                 left: 25px;
             }
@@ -938,7 +940,7 @@
             &.sticky {
                 right: 25px;
                 left: 25px;
-        
+
                 &.active {
                     right: 25px;
                 }
@@ -967,13 +969,13 @@
                     margin: {
                         left: 15px;
                         right: 0;
-                    };
+                    }
                 }
                 .menu-btn {
                     margin: {
                         left: 15px;
                         right: 0;
-                    };
+                    }
                 }
                 .search-box {
                     button {
@@ -987,19 +989,19 @@
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                     .profile-btn {
                         padding: {
                             left: 20px;
                             right: 50px;
-                        };
+                        }
                     }
                 }
             }
             &.sticky {
                 right: 25px;
                 left: 25px;
-        
+
                 &.active {
                     left: 25px;
                     right: 25px;
@@ -1009,7 +1011,7 @@
                 &.sticky {
                     right: 25px;
                     left: 25px;
-            
+
                     &.active {
                         right: 25px;
                         left: 25px;
@@ -1019,24 +1021,22 @@
             &.hide-sidebar {
                 left: 25px;
                 right: 25px;
-    
+
                 .header-left-side {
                     .burger-menu {
                         margin: {
                             right: 0;
                             left: 15px;
-                        };
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
 /* Min width 992px to Max width 1199px */
-@media only screen and (min-width : 992px) and (max-width : 1199px) {
-
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
     .header-area {
         .header-left-side {
             .burger-menu {
@@ -1062,7 +1062,7 @@
         &.sticky {
             right: 25px;
             left: 25px;
-    
+
             &.active {
                 left: 25px;
             }
@@ -1071,7 +1071,7 @@
             &.sticky {
                 right: 25px;
                 left: 25px;
-        
+
                 &.active {
                     right: 25px;
                 }
@@ -1100,13 +1100,13 @@
                     margin: {
                         left: 15px;
                         right: 0;
-                    };
+                    }
                 }
                 .menu-btn {
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                 }
             }
             .header-right-side {
@@ -1115,14 +1115,14 @@
                         padding: {
                             left: 20px;
                             right: 55px;
-                        };
+                        }
                     }
                 }
             }
             &.sticky {
                 right: 25px;
                 left: 25px;
-        
+
                 &.active {
                     left: 25px;
                     right: 25px;
@@ -1132,7 +1132,7 @@
                 &.sticky {
                     right: 25px;
                     left: 25px;
-            
+
                     &.active {
                         right: 25px;
                         left: 25px;
@@ -1142,24 +1142,22 @@
             &.hide-sidebar {
                 left: 25px;
                 right: 25px;
-    
+
                 .header-left-side {
                     .burger-menu {
                         margin: {
                             right: 0;
                             left: 15px;
-                        };
+                        }
                     }
                 }
             }
         }
     }
-
 }
 
 /* Min width 1200px to Max width 1399px */
 @media only screen and (min-width: 1200px) and (max-width: 1399px) {
-
     .header-area {
         .header-left-side {
             .burger-menu {
@@ -1181,7 +1179,7 @@
                         left: 38px;
                         right: 15px;
                         bottom: 11px;
-                    };
+                    }
                     i {
                         left: 15px;
                     }
@@ -1189,7 +1187,7 @@
                 .profile-btn {
                     font-size: 13px !important;
                     padding: 1px 15px 1px 50px;
-    
+
                     img {
                         width: 40px;
                         height: 40px;
@@ -1207,7 +1205,7 @@
         }
         &.sticky {
             left: 265px;
-    
+
             &.active {
                 left: 85px;
             }
@@ -1215,7 +1213,7 @@
         &.right-sidebar {
             &.sticky {
                 right: 265px;
-        
+
                 &.active {
                     right: 85px;
                 }
@@ -1235,13 +1233,13 @@
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                 }
                 .menu-btn {
                     margin: {
                         right: 0;
                         left: 15px;
-                    };
+                    }
                 }
             }
             .header-right-side {
@@ -1250,7 +1248,7 @@
                         padding: {
                             right: 38px;
                             left: 15px;
-                        };
+                        }
                         i {
                             left: auto;
                             right: 15px;
@@ -1260,14 +1258,14 @@
                         padding: {
                             left: 15px;
                             right: 50px;
-                        };
+                        }
                     }
                 }
             }
             &.sticky {
                 right: 265px;
                 left: 25px;
-        
+
                 &.active {
                     left: 25px;
                     right: 85px;
@@ -1277,7 +1275,7 @@
                 &.sticky {
                     right: 25px;
                     left: 265px;
-            
+
                     &.active {
                         right: 25px;
                         left: 85px;
@@ -1290,16 +1288,14 @@
             }
         }
     }
-
 }
 
 /* Min width 1600px */
 @media only screen and (min-width: 1600px) {
-
     .header-area {
         &.sticky {
             left: 325px;
-    
+
             &.active {
                 left: 85px;
             }
@@ -1307,7 +1303,7 @@
         &.right-sidebar {
             &.sticky {
                 right: 325px;
-        
+
                 &.active {
                     right: 85px;
                 }
@@ -1335,7 +1331,7 @@
                 &.sticky {
                     left: 325px;
                     right: 25px;
-            
+
                     &.active {
                         left: 85px;
                         right: 25px;
@@ -1353,13 +1349,11 @@
             }
         }
     }
-
 }
 
 mat-form-field {
     height: 20px; /* Set your desired height */
     border: none;
-
 }
 
 /* Adjust the height of mat-select */
@@ -1368,8 +1362,44 @@ mat-select {
     height: 100%; /* or set a fixed height */
 }
 
-::ng-deep .mat-form-field-appearance-fill .mat-form-field-outline-start, 
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-outline-start,
 ::ng-deep .mat-form-field-appearance-fill .mat-form-field-outline-end {
     border: none !important;
     // border: 5px solid gray !important;
+
+}
+
+.btn_flag{
+    width: auto;
+    height: auto;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 0;
+    font-size: 14px !important;
+    padding: 1px 20px 2px 40px !important;
+}
+.flag {
+    left: 0;
+    top: 50%;
+    width: 25px !important;
+    height: 25px !important;
+    display: block;
+    position: absolute;
+    transform: translateY(-50%);
+
+    border-radius: 50% !important;
+}
+.flag-menu {
+    left: 0;
+    top: 50%;
+    width: 20px !important;
+    height: 20px !important;
+    position: absolute;
+    transform: translateY(-50%);
+    margin-left: 10px;
+
+    border-radius: 50% !important;
+}
+.profile-menu-dropdown.mat-mdc-menu-panel.mat-mdc-menu-panel .mat-mdc-menu-content{
+    padding: 10px;
 }

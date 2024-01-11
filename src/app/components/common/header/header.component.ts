@@ -4,8 +4,9 @@ import { DatePipe } from '@angular/common';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../environments/environment";
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
+import { Z } from '@angular/cdk/keycodes';
 
 @Component({
     selector: 'app-header',
@@ -29,6 +30,10 @@ export class HeaderComponent {
     countries:any = null
 
     isToggled = false;
+
+    activated_type:any = 0
+
+    url:any = []
     
     constructor(
         private toggleService: ToggleService,
@@ -36,16 +41,42 @@ export class HeaderComponent {
         public themeService: CustomizerSettingsService,
         private http: HttpClient,
         public router: Router,
+        private route: ActivatedRoute,
+
         public generalService: GeneralService,
 
 
     ) {
+
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+
+               this.url = event.url.split("/")
+
+                if(this.url[1]=='charts'){
+                    this.activated_type = 1
+
+                }else{
+                    this.activated_type = 2
+
+                }
+
+
+
+
+
+              // Your function to be executed when navigation ends
+              // You can call your functions here
+            }
+          });
+  
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
-        this.http.get(`${environment.URL}/get_countries`).subscribe({
+        this.http.post(`${environment.URL}/get_countries`,{}).subscribe({
             next:(data:any)=>{
                 this.countries = data.countries 
+                generalService.all_countries = data.countries
                 // this.selected_country = this.countries[1]._id
                 // this.generalService.selected_country = this.selected_country
 
@@ -58,14 +89,18 @@ export class HeaderComponent {
             }
         })
     }
-    // ngOnInit() {
-    //     this.http.get(`${environment.URL}/get_countries`).subscribe({
+    ngOnInit() {
+        this.route.url.subscribe(urlSegments => {
+
+            console.log('wwww');
+        })
+    //     this.http.post(`${environment.URL}/get_countries`).subscribe({
     //         next:(data:any)=>{
     //             this.countries = data.data.countries
-    //             console.log("🚀 ~ file: header.component.ts:45 ~ HeaderComponent ~ this.http.get ~  this.countries:",  this.countries)
+    //             console.log("🚀 ~ file: header.component.ts:45 ~ HeaderComponent ~ this.http.post ~  this.countries:",  this.countries)
     //         }
     //     })
-    // }
+    }
     toggleTheme() {
         this.themeService.toggleTheme();
     }
@@ -97,10 +132,17 @@ export class HeaderComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-    onSelect(event:any){
-        this.selected_country = event.value
-        this.generalService.selected_country = this.selected_country
-        this.router.navigate(['/admin',event.value])
+    onSelect(country:any){
+
+        this.selected_country =country
+        this.generalService.selected_country = this.selected_country._id
+        this.generalService.country_detail = this.selected_country
+        if(this.activated_type== 1){
+             this.router.navigate(['/charts',this.url[2],this.selected_country._id])
+        }else{
+
+            this.router.navigate(['/admin',this.selected_country._id])
+        }
 
 
     }

@@ -218,7 +218,7 @@
                     </div>
                 </mat-menu>
             </li> -->
-            <li class=" ">
+            <!-- <li class=" ">
                 <div class="tagus-form-group without-icon">
                     <mat-form-field appearance="fill">
                         <mat-label>Country</mat-label>
@@ -228,10 +228,52 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-            </li>
+            </li> -->
             <li>
-                <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-btn main-color border-none bg-transparent position-relative" >
-                    <img src="assets/img/admin.jpg" class="rounded-circle" alt="admin">
+                <button mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-btn main-color border-none bg-transparent  d-flex btn_flag" >
+                    <img src="https://hop-delivery.s3.eu-central-1.amazonaws.com/{{generalService.country_detail.country_flag}}" class="flag" alt="image" >
+                    <div>
+                        <div>
+
+                            
+                            <!-- Country -->
+                        </div>
+                            <span class="fw-semibold" style="
+                                display: block;
+                                margin-top: 0px !important;
+                                color: var(--blackColor);
+                                font-size: 16px;
+                                font-family: var(--headingFontFamily);
+                            ">{{generalService.country_detail.country_name}}</span>
+                    </div>
+
+                </button>
+                <mat-menu class="profile-menu-dropdown" #profileMenu="matMenu" xPosition="before">
+                    <ul class="m-0">
+                        
+                        <li *ngFor="let country of countries" (click)="onSelect(country)">
+                            <a >
+                                <img class="flag-menu" src="https://hop-delivery.s3.eu-central-1.amazonaws.com/{{country.country_flag}}" alt=""> {{country.country_name}}
+                            </a>
+                        </li>
+                    </ul>
+                </mat-menu>
+            </li>
+            <div class="" style=" 
+                border-left: 1px solid #7f7f7f;
+                height: 119%;
+                width: 1px;
+                margin-left: 10px;
+                margin-right: 26px;
+            ">
+                &nbsp;
+
+
+            </div>
+            <li>
+                <button disabled mat-icon-button [matMenuTriggerFor]="profileMenu" class="profile-btn main-color border-none bg-transparent position-relative" >
+                    <img src="assets/img/admin.jpg" class="rounded-circle" alt="admin" >
+
                     Admin
                     <span class="fw-semibold">Adison Jack</span>
                 </button>
@@ -255,6 +297,7 @@
                     </ul>
                 </mat-menu>
             </li>
+           
         </ul>
     </div>
 </header>

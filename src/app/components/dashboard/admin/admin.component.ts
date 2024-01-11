@@ -46,7 +46,6 @@ export type ChartOptions = {
 };
 
 
-
 @Component({
     selector: 'app-admin',
 
@@ -54,6 +53,127 @@ export type ChartOptions = {
     styleUrl: './admin.component.scss'
 })
 export class AdminComponent {
+
+
+
+    constructor(
+        private datePipe: DatePipe,
+        private http: HttpClient,
+        public themeService: CustomizerSettingsService,
+        private route: ActivatedRoute,
+        public router: Router,
+        public generalService: GeneralService,
+
+    ) {
+
+
+        this.route.params.subscribe((paramss: any) => {
+            console.log('build');
+
+
+            console.log(Object.keys(paramss).length);
+
+
+            if (Object.keys(paramss).length < 1) {
+
+                console.log('comes');
+
+                this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
+                    next: (data: any) => {
+                        let countries = data.countries
+                        this.selected_country = countries[1]._id
+                        this.generalService.selected_country = this.selected_country
+                        this.generalService.country_detail = data.countries[1]
+                        const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
+                        this.generalService.selected_currency = country[0].currency_sign
+
+                        this.router.navigate([`/admin/${this.generalService.selected_country}`])
+
+                    }
+                })
+
+
+            } else {
+
+                console.log(generalService.all_countries);
+
+                console.log("else");
+
+
+                if (this.generalService.all_countries.length <= 0) {
+
+                    console.log('ttttttttttttttttttttttttttttt');
+
+                    this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
+                        next: (data: any) => {
+
+                            this.generalService.all_countries = data.countries
+                            let country = generalService.all_countries?.filter((each: any) => each._id == this.selected_country)
+                            this.generalService.country_detail = country[0]
+                            this.generalService.selected_currency = this.generalService.country_detail[0].currency_sign
+                            // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
+                            console.log(this.generalService.country_detail);
+                            
+                        }
+                    })
+                    
+                } else {
+                    const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
+                    this.generalService.selected_currency = country[0].currency_sign
+            
+                }
+
+
+                // this.router.navigate(['/admin', this.generalService.selected_country])
+                this.resetAll()
+                this.selected_country = paramss.id
+                this.generalService.selected_country = this.selected_country
+
+                console.log(this.selected_country);
+
+                // if(generalService.all_countries.length>0){
+
+                //     const country = generalService.all_countries?.filter((each:any)=>each._id == this.selected_country)
+                //     console.log(country);
+                //     this.generalService.selected_currency = country[0].currency_sign
+                // }else{
+
+
+                // }
+
+
+
+                let params: any = {}
+                params.country_id = this.selected_country
+
+                params.current_date = this.getdateForUTC(new Date)
+
+                params.type = 1
+
+                this.API_1(params)
+                this.API_2(params)
+                this.API_3(params)
+                this.API_4(params)
+                this.API_5(params)
+                this.API_6(params)
+                this.API_7(params)
+                this.API_8(params)
+                this.API_9(params)
+                this.API_10(params)
+                this.API_11(params)
+                this.API_12(params)
+                this.API_13(params)
+                this.API_14(params)
+                this.API_15(params)
+
+                console.log(params.id);
+            }
+
+
+        });
+
+    }
+
     @ViewChild("chart") chart: ChartComponent;
     public chartOptions: any;
     public chartOptions2: any;
@@ -118,7 +238,8 @@ export class AdminComponent {
     }
 
     platform_used: any = {
-        load: false
+        load: false,
+        data: []
     }
     people_visited: any = {
         load: false
@@ -153,11 +274,12 @@ export class AdminComponent {
 
 
     Ratings: any = {
-        user: {name:'',rating:0,count:0},
-        store: {name:'',rating:0,count:0},
-        provider: {name:'',rating:0,count:0},
+        user: { name: '', rating: 0, count: 0 },
+        store: { name: '', rating: 0, count: 0 },
+        provider: { name: '', rating: 0, count: 0 },
         load: false
     }
+    
     Preparation_time: any = {
         months: [],
         ontime_count: [],
@@ -377,17 +499,24 @@ export class AdminComponent {
 
 
     onFilter1(item: any) {
+
         this.filter1 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter1.name = "Custom"
+              this.filter1.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter1.startDate = ''
             this.filter1.endDate = ''
         }
@@ -398,70 +527,94 @@ export class AdminComponent {
     onFilter2(item: any) {
         this.filter2 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter2.name = "Custom"
+              this.filter2.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter2.startDate = ''
             this.filter2.endDate = ''
         }
         this.API_13(params)
-        console.log(item);
     }
     onFilter3(item: any) {
         this.filter3 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter3.name = "Custom"
+              this.filter3.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter3.startDate = ''
             this.filter3.endDate = ''
         }
         this.API_8(params)
 
-        console.log(item);
     }
     onFilter4(item: any) {
         this.filter4 = item
+
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
-
+            
+ 
+            this.filter4.name = "Custom"
+         
+            this.filter4.value = 5
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter4.startDate = ''
             this.filter4.endDate = ''
         }
         this.API_7(params)
-        console.log(item);
     }
     onFilter5(item: any) {
         this.filter5 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter5.name = "Custom"
+              this.filter5.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter5.startDate = ''
             this.filter5.endDate = ''
         }
@@ -470,87 +623,113 @@ export class AdminComponent {
     onFilter6(item: any) {
         this.filter6 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter6.name = "Custom"
+              this.filter6.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter6.startDate = ''
             this.filter6.endDate = ''
         }
         this.API_10(params)
-        console.log(item);
     }
     onFilter7(item: any) {
         this.filter7 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter7.name = "Custom"
+              this.filter7.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter7.startDate = ''
             this.filter7.endDate = ''
         }
         this.API_11(params)
-        console.log(item);
     }
     onFilter8(item: any) {
         this.filter8 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter8.name = "Custom"
+              this.filter8.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter8.startDate = ''
             this.filter8.endDate = ''
         }
         this.API_12(params)
-        console.log(item);
     }
     onFilter9(item: any) {
         this.filter9 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter9.name = "Custom"
+              this.filter9.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter9.startDate = ''
             this.filter9.endDate = ''
         }
         this.API_3(params)
-        console.log(item);
     }
     onFilter10(item: any) {
         this.filter10 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter10.name = "Custom"
+              this.filter10.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter10.startDate = ''
             this.filter10.endDate = ''
         }
@@ -559,15 +738,21 @@ export class AdminComponent {
     onFilter11(item: any) {
         this.filter11 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter11.name = "Custom"
+              this.filter11.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter11.startDate = ''
             this.filter11.endDate = ''
         }
@@ -576,15 +761,21 @@ export class AdminComponent {
     onFilter12(item: any) {
         this.filter12 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter12.name = "Custom"
+              this.filter12.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter12.startDate = ''
             this.filter12.endDate = ''
         }
@@ -593,15 +784,21 @@ export class AdminComponent {
     onFilter13(item: any) {
         this.filter13 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter13.name = "Custom"
+              this.filter13.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter13.startDate = ''
             this.filter13.endDate = ''
         }
@@ -611,16 +808,23 @@ export class AdminComponent {
     onFilter14(item: any) {
         this.filter14 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+        this.filter14.name = "Custom"
+         this.filter14.value = 5
+            
 
         }
 
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter14.startDate = ''
             this.filter14.endDate = ''
 
@@ -630,107 +834,31 @@ export class AdminComponent {
     onFilter15(item: any) {
         this.filter15 = item
         let params: any = {}
+        if((item.startDate && !item.endDate) || (!item.startDate && item.endDate)){
+            return
+
+        }
         params.current_date = this.getdateForUTC(new Date)
         if (item.startDate && item.endDate) {
             params.startDate = this.getdateForUTC(item.startDate)
             params.endDate = this.getdateForUTC(item.endDate)
+             this.filter15.name = "Custom"
+              this.filter15.value = 5
 
         }
         params.country_id = this.selected_country
         params.type = item.value
-        if (params.type == 5) {
+        if (params.type != 5) {
             this.filter15.startDate = ''
             this.filter15.endDate = ''
         }
         this.API_15(params)
-        console.log(item);
     }
 
 
-    constructor(
-        private datePipe: DatePipe,
-        private http: HttpClient,
-        public themeService: CustomizerSettingsService,
-        private route: ActivatedRoute,
-        public router: Router,
-        public generalService: GeneralService,
-
-    ) {
-
-
-        this.route.params.subscribe((paramss: any) => {
-            console.log('build');
-
-
-            console.log(Object.keys(paramss).length);
-
-
-            if (Object.keys(paramss).length < 1) {
-
-                console.log('comes');
-
-                this.http.get(`${environment.URL}/get_countries`).subscribe({
-                    next: (data: any) => {
-                        let countries = data.countries
-                        this.selected_country = countries[1]._id
-                        this.generalService.selected_country = this.selected_country
-                        console.log(generalService.selected_country);
-
-                        console.log(this.generalService.selected_country);
-                        this.router.navigate(['/admin', this.generalService.selected_country])
-
-                    }
-                })
-
-
-            } else {
-
-                console.log("else");
-
-
-
-
-                // this.router.navigate(['/admin', this.generalService.selected_country])
-                this.resetAll()
-                this.selected_country = paramss.id
-                console.log(this.selected_country);
-                this.generalService.selected_country = this.selected_country
-
-
-
-                let params: any = {}
-                params.country_id = this.selected_country
-                params.current_date = this.getdateForUTC(new Date)
-
-                params.type = 1
-
-                this.API_1(params)
-                this.API_2(params)
-                this.API_3(params)
-                this.API_4(params)
-                this.API_5(params)
-                this.API_6(params)
-                this.API_7(params)
-                this.API_8(params)
-                this.API_9(params)
-                this.API_10(params)
-                this.API_11(params)
-                this.API_12(params)
-                this.API_13(params)
-                this.API_14(params)
-                this.API_15(params)
-
-                console.log(params.id);
-            }
-
-
-        });
-
-    }
 
     onDateRangeSelection(picker: any) {
 
-        this.selectedDateRange = picker.value;
         console.log('Selected Date Range:', this.filter9);
         // You can access the start and end dates using this.selectedDateRange.start and this.selectedDateRange.end
     }
@@ -739,7 +867,7 @@ export class AdminComponent {
         this.bussiness_detail.load = false
 
 
-        this.http.get(`${environment.URL}/API_1`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_1`, { params: date }).subscribe({
             next: (data: any) => {
 
                 console.log(data);
@@ -762,10 +890,11 @@ export class AdminComponent {
     API_2(date: any) {
 
         this.platform_used.load = false
-        this.http.get(`${environment.URL}/API_2`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_2`, { params: date }).subscribe({
             next: (data: any) => {
                 console.log(data.data.data);
                 this.platform_used.load = true
+                this.platform_used.data = data.data.data
 
                 setTimeout(() => {
 
@@ -820,7 +949,7 @@ export class AdminComponent {
                         ]
                     };
                     this.chartOptions3 && myChart.setOption(this.chartOptions3);
-                }, 0);
+                }, 100);
 
 
             }, error: (error) => {
@@ -833,11 +962,15 @@ export class AdminComponent {
 
         this.top_sales.load = false
 
-        this.http.get(`${environment.URL}/API_3`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_3`, { params: date }).subscribe({
             next: (data: any) => {
 
                 this.top_sales.items = data.data.items.map((order: any) => order.y)
                 this.top_sales.modifiers = data.data.modifiers.map((order: any) => order.y);
+
+
+                console.log(this.top_sales.items);
+                console.log(this.top_sales.modifiers);
 
                 this.top_sales.load = true
 
@@ -946,14 +1079,14 @@ export class AdminComponent {
     API_4(date: any) {
 
         this.people_visited.load = false
-        this.http.get(`${environment.URL}/API_4`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_4`, { params: date }).subscribe({
             next: (data: any) => {
                 this.people_visited.load = true
                 console.log(data);
-                this.orders = data.data.orders[0].total_orders
-                console.log("🚀 ~ file: analytics-status.component.ts:77 ~ AnalyticsStatusComponent ~ this.http.get ~ this.orders:", this.orders)
-                this.visited = data.data.analytic[0].total_visits
-                console.log("🚀 ~ file: analytics-status.component.ts:79 ~ AnalyticsStatusComponent ~ this.http.get ~ this.visited:", this.visited)
+                this.orders = data.data.orders[0]?.total_orders
+                console.log("🚀 ~ file: analytics-status.component.ts:77 ~ AnalyticsStatusComponent ~ this.http.post ~ this.orders:", this.orders)
+                this.visited = data.data.analytic[0]?.total_visits
+                console.log("🚀 ~ file: analytics-status.component.ts:79 ~ AnalyticsStatusComponent ~ this.http.post ~ this.visited:", this.visited)
 
                 // this.chartOptions = {
                 //     series: [
@@ -1039,7 +1172,7 @@ export class AdminComponent {
 
 
         this.peak_hours.load = false
-        this.http.get(`${environment.URL}/API_5`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_5`, { params: date }).subscribe({
             next: (data: any) => {
                 this.peak_hours.load = true
 
@@ -1101,7 +1234,7 @@ export class AdminComponent {
 
 
         this.order_type.load = false
-        this.http.get(`${environment.URL}/API_6`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_6`, { params: date }).subscribe({
             next: (data: any) => {
 
                 this.order_type.load = true
@@ -1147,6 +1280,11 @@ export class AdminComponent {
                     plotOptions: {
                         bar: {
                             horizontal: false
+                        },
+                        tooltip: {
+                            onDatasetHover: {
+                                highlightDataSeries: true
+                            }
                         }
                     },
                     xaxis: {
@@ -1203,7 +1341,7 @@ export class AdminComponent {
 
 
         this.top_providers.load = false
-        this.http.get(`${environment.URL}/API_7`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_7`, { params: date }).subscribe({
             next: (data: any) => {
                 this.top_providers.load = true
                 this.top_providers.list = data.data.orders
@@ -1216,7 +1354,7 @@ export class AdminComponent {
 
 
         this.top_users.load = false
-        this.http.get(`${environment.URL}/API_8`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_8`, { params: date }).subscribe({
             next: (data: any) => {
                 this.top_users.load = true
                 this.top_users.list = data.data.orders
@@ -1230,24 +1368,31 @@ export class AdminComponent {
 
 
         this.Top_stores.load = false
-        this.http.get(`${environment.URL}/API_9`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_9`, { params: date }).subscribe({
             next: (data: any) => {
                 this.Top_stores.load = true
 
                 this.Top_stores.value = []
                 this.Top_stores.catagory = []
                 data.data.orders.forEach((each: any) => {
+                    if (each.y != null && each.x != null) {
 
-                    this.Top_stores.value.push((each.y).toFixed(1))
-                    this.Top_stores.catagory.push(each.x)
+                        this.Top_stores.value.push((each.y).toFixed(1))
+
+
+                        this.Top_stores.catagory.push(each.x)
+                    }
 
 
                 });
 
+                console.log(this.Top_stores.value);
+                console.log(this.Top_stores.catagory);
+
                 this.chartOptions13 = {
                     series: [
                         {
-                            name: "Total Stores:",
+                            name: "Revenue",
                             data: this.Top_stores.value,
                         }
                     ],
@@ -1305,11 +1450,13 @@ export class AdminComponent {
                         opacity: 1
                     },
                     tooltip: {
-                        // y: {
-                        //     formatter: function(val) {
-                        //         return val + " hours";
-                        //     }
-                        // }
+                        y: {
+                            formatter: (val: any,) => {
+                                const formattedCurrency = this.generalService?.selected_currency;
+
+                                return `${formattedCurrency} ${val}`;
+                            }
+                        }
                     },
                     legend: {
                         offsetY: 5,
@@ -1338,7 +1485,7 @@ export class AdminComponent {
 
 
         this.Average_order_amount.load = false
-        this.http.get(`${environment.URL}/API_10`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_10`, { params: date }).subscribe({
             next: (data: any) => {
                 this.Average_order_amount.load = true
                 // this.top_users = data.data.orders
@@ -1419,11 +1566,14 @@ export class AdminComponent {
                     fill: {
                         opacity: 1,
                     },
+
                     tooltip: {
                         y: {
-                            // formatter: function(val) {
-                            //     return  + val + " min";
-                            // }
+                            formatter: (val: any,) => {
+                                const formattedCurrency = this.generalService?.selected_currency;
+
+                                return `${formattedCurrency} ${val}`;
+                            }
                         }
                     },
                     legend: {
@@ -1449,7 +1599,7 @@ export class AdminComponent {
 
 
         this.Delivery_time.load = false
-        this.http.get(`${environment.URL}/API_11`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_11`, { params: date }).subscribe({
             next: (data: any) => {
                 // this.top_users = data.data.orders
 
@@ -1513,6 +1663,7 @@ export class AdminComponent {
                             horizontal: false
                         }
                     },
+
                     xaxis: {
                         type: "category",
                         axisBorder: {
@@ -1569,7 +1720,7 @@ export class AdminComponent {
         this.Preparation_time.load = false
 
 
-        this.http.get(`${environment.URL}/API_12`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_12`, { params: date }).subscribe({
             next: (data: any) => {
                 // this.top_users = data.data.orders
                 this.Preparation_time.load = true
@@ -1680,7 +1831,7 @@ export class AdminComponent {
 
 
         this.Ratings.load = false
-        this.http.get(`${environment.URL}/API_13`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_13`, { params: date }).subscribe({
             next: (data: any) => {
                 console.log(data);
 
@@ -1692,10 +1843,10 @@ export class AdminComponent {
                     this.Ratings.user.name = `${data.data?.user[0]?.user[0]?.first_name} ${data.data?.user[0]?.user[0]?.last_name}`
                     this.Ratings.user.rating = (data.data?.user[1]?.y / data.data?.user[0]?.y).toFixed(1)
                     this.Ratings.user.count = data.data?.user[0]?.y
-                }else{
+                } else {
                     console.log('el 1');
                     this.Ratings.user.name = ''
-                    this.Ratings.user.ratings = 0 
+                    this.Ratings.user.ratings = 0
                     this.Ratings.user.count = 0
 
                 }
@@ -1705,47 +1856,47 @@ export class AdminComponent {
                     this.Ratings.provider.name = data.data?.provider[0]?.provider[0].first_name + data.data?.provider[0]?.provider[0]?.last_name
                     this.Ratings.provider.rating = (data.data?.provider[1]?.y / data.data?.provider[0]?.y).toFixed(1)
                     this.Ratings.provider.count = data.data?.provider[0]?.y
-                }else{
+                } else {
                     console.log('el 2');
 
                     this.Ratings.provider.name = ''
-                    this.Ratings.provider.ratings = 0 
+                    this.Ratings.provider.ratings = 0
                     this.Ratings.provider.count = 0
 
                 }
 
-                if (data.data?.store .length > 0) {
+                if (data.data?.store.length > 0) {
 
                     this.Ratings.store.name = data.data?.store[0]?.store[0]?.name
                     this.Ratings.store.rating = (data.data?.store[1]?.y / data.data?.store[0]?.y).toFixed(1)
                     this.Ratings.store.count = data.data?.store[0]?.y
 
-                }else{
+                } else {
                     console.log('el 3');
 
                     this.Ratings.store.name = ''
-                    this.Ratings.store.ratings = 0 
+                    this.Ratings.store.ratings = 0
                     this.Ratings.store.count = 0
 
                 }
 
 
-                    console.log(this.Ratings);
+                console.log(this.Ratings);
 
 
 
 
 
-                }, error: (error) => {
-                    console.log(error);
-                }
-            })
+            }, error: (error) => {
+                console.log(error);
+            }
+        })
     }
     API_14(date: any) {
 
 
         this.Average_delivery_time.load = false
-        this.http.get(`${environment.URL}/API_14`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_14`, { params: date }).subscribe({
             next: (data: any) => {
                 console.log(data);
                 this.Average_delivery_time.load = true
@@ -1827,9 +1978,9 @@ export class AdminComponent {
                     },
                     tooltip: {
                         y: {
-                            // formatter: function(val) {
-                            //     return  + val + " min";
-                            // }
+                            formatter: (val: any) => {
+                                return `${val} min`;
+                            }
                         }
                     },
                     legend: {
@@ -1856,7 +2007,7 @@ export class AdminComponent {
 
 
         this.Top_store_order.load = false
-        this.http.get(`${environment.URL}/API_15`, { params: date }).subscribe({
+        this.http.post(`${environment.URL}/API_15`, { params: date }).subscribe({
             next: (data: any) => {
                 this.Top_store_order.load = true
 
@@ -1864,8 +2015,16 @@ export class AdminComponent {
                 this.Top_store_order.catagory = []
                 data.data.orders.forEach((each: any) => {
 
-                    this.Top_store_order.value.push((each.y).toFixed(1))
-                    this.Top_store_order.catagory.push(each.x)
+                    if (each.y != null && each.x != null) {
+
+                        this.Top_store_order.value.push((each.y).toFixed(1))
+
+
+                        this.Top_store_order.catagory.push(each.x)
+                    }
+
+                    // this.Top_store_order.value.push((each.y).toFixed(1))
+                    // this.Top_store_order.catagory.push(each.x)
 
 
                 });
@@ -1873,7 +2032,7 @@ export class AdminComponent {
                 this.chartOptions15 = {
                     series: [
                         {
-                            name: "Total Stores:",
+                            name: "Orders",
                             data: this.Top_store_order.value,
                         }
                     ],
@@ -1892,6 +2051,7 @@ export class AdminComponent {
                     dataLabels: {
                         enabled: false
                     },
+                    
                     // colors: [
                     //     "",
                     // ],

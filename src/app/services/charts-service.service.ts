@@ -20,7 +20,7 @@ export class ChartsServiceService {
      .set("token",'wef')
 
      let options = {params}
-    return this.http.get(
+    return this.http.post(
 
       `${environment.URL}/get_charts_list`,options
     );
@@ -28,7 +28,7 @@ export class ChartsServiceService {
 
   getCharts(id:any){
     return this.http.get(
-      `${environment.URL}/get_charts?token=wef&id=${id}`
+      `${environment.URL}/get_charts?token=wef&id=${id}`,{}
 
     );
 
@@ -36,8 +36,8 @@ export class ChartsServiceService {
 
   getCatagory(id:any){
 
-    return this.http.get(
-      `${environment.URL}/get_for_whom?token=wef&id=${id}`
+    return this.http.post(
+      `${environment.URL}/get_for_whom?token=wef&id=${id}`,{}
     );
 
 

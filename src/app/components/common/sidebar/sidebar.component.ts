@@ -3,6 +3,7 @@ import { ToggleService } from '../header/toggle.service';
 import { CustomizerSettingsService } from '../../customizer-settings/customizer-settings.service';
 import { ChartsServiceService } from 'src/app/services/charts-service.service';
 import { Route, Router } from '@angular/router';
+import { GeneralService } from 'src/app/services/general.service';
 
 @Component({
     selector: 'app-sidebar',
@@ -24,6 +25,8 @@ export class SidebarComponent {
         public themeService: CustomizerSettingsService,
         public chartsServiceService: ChartsServiceService,
         public router: Router,
+        public generalService: GeneralService,
+
         
     ) {
         this.toggleService.isToggled$.subscribe(isToggled => {
