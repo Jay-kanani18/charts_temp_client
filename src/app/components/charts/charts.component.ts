@@ -112,12 +112,10 @@ export class ChartsComponent {
             this.subcatagory_id = paramss.id
             this.getChartList(paramss.id)
 
-            let country = generalService.all_countries?.filter((each: any) => each._id == this.selected_country)
+            let country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
             this.generalService.country_detail = country[0]
 
-            this.selected_country = paramss.country
-            this.generalService.selected_country = this.selected_country
-
+            this.generalService.selected_country = paramss.country
 
 
             let params: any = {}

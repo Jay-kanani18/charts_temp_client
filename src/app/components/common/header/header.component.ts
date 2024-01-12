@@ -73,10 +73,29 @@ export class HeaderComponent {
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
+        // this.http.post(`${environment.URL}/get_countries`,{}).subscribe({
+        //     next:(data:any)=>{
+        //         this.countries = data.countries 
+        //         generalService.all_countries = data.countries
+        //         generalService.country_detail = data.countries[0]
+        //         // this.selected_country = this.countries[1]._id
+        //         // this.generalService.selected_country = this.selected_country
+
+                
+        //         // this.generalService.selected_country = this.countries[1]._id
+        //         // console.log(generalService.selected_country);
+
+
+          
+        //     }
+        // })
+    }
+    ngOnInit() {
         this.http.post(`${environment.URL}/get_countries`,{}).subscribe({
             next:(data:any)=>{
                 this.countries = data.countries 
-                generalService.all_countries = data.countries
+                this.generalService.all_countries = data.countries
+                this.generalService.country_detail = data.countries[0]
                 // this.selected_country = this.countries[1]._id
                 // this.generalService.selected_country = this.selected_country
 
@@ -88,8 +107,6 @@ export class HeaderComponent {
           
             }
         })
-    }
-    ngOnInit() {
         this.route.url.subscribe(urlSegments => {
 
             console.log('wwww');
@@ -134,14 +151,27 @@ export class HeaderComponent {
     }
     onSelect(country:any){
 
-        this.selected_country =country
+        this.generalService.updateHeaderVariable("aa");
+
+
+        this.selected_country = country
+
+        localStorage.setItem('country',JSON.stringify(this.selected_country))
         this.generalService.selected_country = this.selected_country._id
         this.generalService.country_detail = this.selected_country
         if(this.activated_type== 1){
              this.router.navigate(['/charts',this.url[2],this.selected_country._id])
         }else{
 
-            this.router.navigate(['/admin',this.selected_country._id])
+            // this.router.navigate(['/admin',this.selected_country._id])
+
+
+            let user:any = localStorage.getItem('user')
+            let parsed_user = JSON.parse(user)
+            let catagory = parsed_user.catagory_detail[0].name
+            console.log(parsed_user.name);
+            this.router.navigate([`/${parsed_user.name}/${this.selected_country.country_name}/${catagory}`])
+
         }
 
 

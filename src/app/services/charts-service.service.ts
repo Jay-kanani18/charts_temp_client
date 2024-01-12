@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment";
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +42,24 @@ export class ChartsServiceService {
     );
 
 
+  }
+
+  // getData(): Observable<any> {
+  //   const url = `${this.baseUrl}/some-endpoint`;
+  //   return this.http.get(url);
+  // }
+
+  // Add more API call functions as needed
+
+  // Example observable for API response
+  private dataSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
+  getDataObservable(): Observable<any> {
+    return this.dataSubject.asObservable();
+  }
+
+  updateData(data: any) {
+    this.dataSubject.next(data);
   }
 
 }

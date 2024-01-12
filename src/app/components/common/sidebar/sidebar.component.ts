@@ -65,6 +65,9 @@ export class SidebarComponent {
             next:(data:any)=>{
 
                 this.catagory_list = data.data
+
+                localStorage.setItem('user', JSON.stringify(data.user_detail));
+
             },error:(error)=>{
             }
         })

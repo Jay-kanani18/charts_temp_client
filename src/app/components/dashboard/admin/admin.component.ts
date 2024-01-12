@@ -25,6 +25,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDatepicker } from '@angular/material/datepicker';
+import { ChartsServiceService } from 'src/app/services/charts-service.service';
 
 
 export type ChartOptions = {
@@ -63,8 +64,18 @@ export class AdminComponent {
         private route: ActivatedRoute,
         public router: Router,
         public generalService: GeneralService,
+        private apiService: ChartsServiceService
 
     ) {
+        setInterval(()=>{
+            console.log(this.generalService.country_detail);
+        },1000)
+
+
+        this.apiService.getDataObservable().subscribe((data) => {
+
+            console.log('data should change');
+        });
 
 
         this.route.params.subscribe((paramss: any) => {
@@ -81,13 +92,28 @@ export class AdminComponent {
                 this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
                     next: (data: any) => {
                         let countries = data.countries
-                        this.selected_country = countries[1]._id
-                        this.generalService.selected_country = this.selected_country
+                        this.generalService.selected_country = countries[1]._id
                         this.generalService.country_detail = data.countries[1]
                         const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
                         this.generalService.selected_currency = country[0].currency_sign
 
-                        this.router.navigate([`/admin/${this.generalService.selected_country}`])
+                        localStorage.setItem('country', JSON.stringify(this.generalService.country_detail))
+
+                    
+                        // let user:any = localStorage.getItem('user')
+                        // let parsed_user = JSON.parse(user)
+                        // console.log(parsed_user.name);
+
+
+                        let user: any = localStorage.getItem('user')
+                        let parsed_user = JSON.parse(user)
+                        let catagory = parsed_user.catagory_detail[0].name
+                        this.router.navigate([`/${parsed_user.name}/${this.generalService.country_detail.country_name}/${catagory}`])
+
+
+                        // this.router.navigate([`/admin/${this.generalService.selected_country}`])
+                        // this.router.navigate([`/${parsed_user.name}/${this.generalService.selected_country}`])
+
 
                     }
                 })
@@ -97,23 +123,26 @@ export class AdminComponent {
 
                 console.log(generalService.all_countries);
 
-                console.log("else");
 
 
                 if (this.generalService.all_countries.length <= 0) {
 
-                    console.log('ttttttttttttttttttttttttttttt');
+                    console.log("country list empty");
+
 
                     this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
                         next: (data: any) => {
 
-                            this.generalService.all_countries = data.countries
-                            let country = generalService.all_countries?.filter((each: any) => each._id == this.selected_country)
-                            this.generalService.country_detail = country[0]
-                            console.log(this.generalService.country_detail);
-                            this.generalService.selected_currency = this.generalService.country_detail.currency_sign
-                            // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
-                            console.log(this.generalService.country_detail);
+                                
+                                
+                                this.generalService.all_countries = data.countries
+                                let country = generalService.all_countries?.filter((each: any) => each._id ==  this.generalService.selected_country)
+                                this.generalService.country_detail = country[0]
+                                this.generalService.selected_currency = this.generalService.country_detail.currency_sign
+                                // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
+                                localStorage.setItem('country', JSON.stringify(this.generalService.country_detail))
+                                    console.log('cc');
+                                    
 
                         }
                     })
@@ -127,8 +156,7 @@ export class AdminComponent {
 
                 // this.router.navigate(['/admin', this.generalService.selected_country])
                 this.resetAll()
-                this.selected_country = paramss.id
-                this.generalService.selected_country = this.selected_country
+                // this.selected_country = paramss.id
 
                 console.log(this.selected_country);
 
@@ -145,7 +173,12 @@ export class AdminComponent {
 
 
                 let params: any = {}
-                params.country_id = this.selected_country
+
+                let data: any = localStorage.getItem('country')
+                let parsed_data = JSON.parse(data)
+
+                this.generalService.selected_country = parsed_data._id
+                params.country_id = parsed_data._id
 
                 params.current_date = this.getdateForUTC(new Date)
 
@@ -515,7 +548,7 @@ export class AdminComponent {
             this.filter1.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter1.startDate = ''
@@ -540,7 +573,7 @@ export class AdminComponent {
             this.filter2.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter2.startDate = ''
@@ -563,7 +596,7 @@ export class AdminComponent {
             this.filter3.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter3.startDate = ''
@@ -590,7 +623,7 @@ export class AdminComponent {
 
             this.filter4.value = 5
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter4.startDate = ''
@@ -613,7 +646,7 @@ export class AdminComponent {
             this.filter5.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter5.startDate = ''
@@ -636,7 +669,7 @@ export class AdminComponent {
             this.filter6.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter6.startDate = ''
@@ -659,7 +692,7 @@ export class AdminComponent {
             this.filter7.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter7.startDate = ''
@@ -682,7 +715,7 @@ export class AdminComponent {
             this.filter8.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter8.startDate = ''
@@ -705,7 +738,7 @@ export class AdminComponent {
             this.filter9.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter9.startDate = ''
@@ -728,7 +761,7 @@ export class AdminComponent {
             this.filter10.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter10.startDate = ''
@@ -751,7 +784,7 @@ export class AdminComponent {
             this.filter11.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter11.startDate = ''
@@ -774,7 +807,7 @@ export class AdminComponent {
             this.filter12.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter12.startDate = ''
@@ -797,7 +830,7 @@ export class AdminComponent {
             this.filter13.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter13.startDate = ''
@@ -823,7 +856,7 @@ export class AdminComponent {
 
         }
 
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter14.startDate = ''
@@ -847,7 +880,7 @@ export class AdminComponent {
             this.filter15.value = 5
 
         }
-        params.country_id = this.selected_country
+        params.country_id = this.generalService.selected_country
         params.type = item.value
         if (params.type != 5) {
             this.filter15.startDate = ''
@@ -1275,7 +1308,7 @@ export class AdminComponent {
                             show: false
                         }
                     },
-                    
+
                     dataLabels: {
                         enabled: false
                     },
@@ -1294,15 +1327,15 @@ export class AdminComponent {
                         intersect: false,
 
                         y: {
-                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
                                 // Check if it's an item or modifier based on seriesIndex
-                          
-                                    let total = series.reduce(function (acc:any, num:any) {
-                                        return +acc + +num;
-                                    }, 0);
-    
-                                    let  percentage = ((value/ total)*100 ).toFixed(1)
-                                    return `${value} (${percentage}%)`;
+
+                                let total = series.reduce(function (acc: any, num: any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let percentage = ((value / total) * 100).toFixed(1)
+                                return `${value} (${percentage}%)`;
                             },
                         },
 
@@ -1690,12 +1723,12 @@ export class AdminComponent {
                         intersect: false,
 
                         y: {
-                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
-                                let total = series.reduce(function (acc:any, num:any) {
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
+                                let total = series.reduce(function (acc: any, num: any) {
                                     return +acc + +num;
                                 }, 0);
 
-                                let  percentage = ((value/ total)*100 ).toFixed(1)
+                                let percentage = ((value / total) * 100).toFixed(1)
                                 return `${value} (${percentage}%)`;
                             },
                         },
@@ -1814,20 +1847,20 @@ export class AdminComponent {
                             horizontal: false
                         }
                     },
-                    tooltip:{
+                    tooltip: {
                         shared: true,
                         intersect: false,
 
                         y: {
-                            formatter:  (value:any, { series, seriesIndex, dataPointIndex }:any)=> {
-                                
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
 
 
-                                let total = series.reduce(function (acc:any, num:any) {
+
+                                let total = series.reduce(function (acc: any, num: any) {
                                     return +acc + +num;
                                 }, 0);
 
-                                let  percentage = ((value/ total)*100 ).toFixed(1)
+                                let percentage = ((value / total) * 100).toFixed(1)
                                 return `${value} (${percentage}%)`;
                             },
                         },
