@@ -84,7 +84,6 @@ export class TaskDistributionComponent {
 
         });
 
-        console.log("🚀 ~ file: task-distribution.component.ts:91 ~ TaskDistributionComponent ~  this.chart_lables:", this.chart_lables)
     }
     API_5(date: any) {
 

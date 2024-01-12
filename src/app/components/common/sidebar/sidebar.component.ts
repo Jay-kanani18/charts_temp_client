@@ -18,6 +18,8 @@ export class SidebarComponent {
 
     user_id :any = "659fac2e37e9286a306d0ba6"
 
+    user:any = ''
+
     catagory_list:any = []
 
     constructor(
@@ -66,6 +68,7 @@ export class SidebarComponent {
 
                 this.catagory_list = data.data
 
+                this.user = data.user_detail
                 localStorage.setItem('user', JSON.stringify(data.user_detail));
 
             },error:(error)=>{

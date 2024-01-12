@@ -67,33 +67,27 @@ export class AdminComponent {
         private apiService: ChartsServiceService
 
     ) {
-        setInterval(()=>{
-            console.log(this.generalService.country_detail);
-        },1000)
-
+        this.generalService.activated_type = 1
+     
 
         this.apiService.getDataObservable().subscribe((data) => {
 
-            console.log('data should change');
         });
 
 
         this.route.params.subscribe((paramss: any) => {
-            console.log('build');
 
 
-            console.log(Object.keys(paramss).length);
 
 
             if (Object.keys(paramss).length < 1) {
 
-                console.log('comes');
 
                 this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
                     next: (data: any) => {
                         let countries = data.countries
-                        this.generalService.selected_country = countries[1]._id
-                        this.generalService.country_detail = data.countries[1]
+                        this.generalService.selected_country = countries[0]._id
+                        this.generalService.country_detail = data.countries[0]
                         const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
                         this.generalService.selected_currency = country[0].currency_sign
 
@@ -121,44 +115,46 @@ export class AdminComponent {
 
             } else {
 
-                console.log(generalService.all_countries);
 
 
 
                 if (this.generalService.all_countries.length <= 0) {
 
-                    console.log("country list empty");
+
+                    this.router.navigate(['/admin'])
 
 
-                    this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
-                        next: (data: any) => {
+                    // this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
+                    //     next: (data: any) => {
 
                                 
                                 
-                                this.generalService.all_countries = data.countries
-                                let country = generalService.all_countries?.filter((each: any) => each._id ==  this.generalService.selected_country)
-                                this.generalService.country_detail = country[0]
-                                this.generalService.selected_currency = this.generalService.country_detail.currency_sign
-                                // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
-                                localStorage.setItem('country', JSON.stringify(this.generalService.country_detail))
-                                    console.log('cc');
+                    //             this.generalService.all_countries = data.countries
+                    //             let country = generalService.all_countries?.filter((each: any) => each._id ==  this.generalService.selected_country)
+                    //             this.generalService.country_detail = country[0]
+                    //             this.generalService.selected_currency = this.generalService.country_detail.currency_sign
+                    //             // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
+                    //             localStorage.setItem('country', JSON.stringify(this.generalService.country_detail))
                                     
 
-                        }
-                    })
+                    //     }
+                    // })
 
                 } else {
+
+
+
+
                     const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
                     this.generalService.selected_currency = country[0].currency_sign
 
                 }
 
 
-                // this.router.navigate(['/admin', this.generalService.selected_country])
                 this.resetAll()
+                // this.router.navigate(['/admin', this.generalService.selected_country])
                 // this.selected_country = paramss.id
 
-                console.log(this.selected_country);
 
                 // if(generalService.all_countries.length>0){
 
@@ -200,7 +196,6 @@ export class AdminComponent {
                 this.API_14(params)
                 this.API_15(params)
 
-                console.log(params.id);
             }
 
 
@@ -556,7 +551,6 @@ export class AdminComponent {
         }
         this.API_2(params)
         this.API_4(params)
-        console.log('111111111111111111111');
     }
     onFilter2(item: any) {
         this.filter2 = item
@@ -893,7 +887,6 @@ export class AdminComponent {
 
     onDateRangeSelection(picker: any) {
 
-        console.log('Selected Date Range:', this.filter9);
         // You can access the start and end dates using this.selectedDateRange.start and this.selectedDateRange.end
     }
     API_1(date: any) {
@@ -904,7 +897,6 @@ export class AdminComponent {
         this.http.post(`${environment.URL}/API_1`, { params: date }).subscribe({
             next: (data: any) => {
 
-                console.log(data);
                 this.bussiness_detail.load = true
 
 
@@ -915,7 +907,6 @@ export class AdminComponent {
 
 
 
-                console.log(data);
             }, error: (error) => {
                 console.log(error);
             }
@@ -926,19 +917,16 @@ export class AdminComponent {
         this.platform_used.load = false
         this.http.post(`${environment.URL}/API_2`, { params: date }).subscribe({
             next: (data: any) => {
-                console.log(data.data.data);
                 this.platform_used.load = true
                 this.platform_used.data = data.data.data
 
                 setTimeout(() => {
 
                     var chartDom: HTMLElement = document.getElementById("chart3") as HTMLElement;
-                    console.log(chartDom);
                     let myChart = echarts.init(chartDom);
 
                     data.data.data.splice(data.data.data.length - 1, 1)
                     data.data.data.map((each: any) => {
-                        console.log(each.name);
                         if (each.name == "") {
                             each.name = "web"
                         }
@@ -1003,8 +991,6 @@ export class AdminComponent {
                 this.top_sales.modifiers = data.data.modifiers.map((order: any) => order.y);
 
 
-                console.log(this.top_sales.items);
-                console.log(this.top_sales.modifiers);
 
                 this.top_sales.load = true
 
@@ -1116,11 +1102,8 @@ export class AdminComponent {
         this.http.post(`${environment.URL}/API_4`, { params: date }).subscribe({
             next: (data: any) => {
                 this.people_visited.load = true
-                console.log(data);
                 this.orders = data.data.orders[0]?.total_orders
-                console.log("🚀 ~ file: analytics-status.component.ts:77 ~ AnalyticsStatusComponent ~ this.http.post ~ this.orders:", this.orders)
                 this.visited = data.data.analytic[0]?.total_visits
-                console.log("🚀 ~ file: analytics-status.component.ts:79 ~ AnalyticsStatusComponent ~ this.http.post ~ this.visited:", this.visited)
 
                 // this.chartOptions = {
                 //     series: [
@@ -1439,8 +1422,6 @@ export class AdminComponent {
 
                 });
 
-                console.log(this.Top_stores.value);
-                console.log(this.Top_stores.catagory);
 
                 this.chartOptions13 = {
                     series: [
@@ -1507,7 +1488,6 @@ export class AdminComponent {
                             formatter: (val: any,) => {
                                 const formattedCurrency = this.generalService?.selected_currency;
 
-                                console.log(this.generalService?.selected_currency);
 
                                 return `${formattedCurrency} ${val}`;
                             }
@@ -1555,7 +1535,6 @@ export class AdminComponent {
 
 
                 });
-                console.log(data);
 
                 this.chartOptions2 = {
                     series: [
@@ -1684,7 +1663,6 @@ export class AdminComponent {
                     this.Delivery_time.over_time.push(each.over_time)
 
                 });
-                console.log(this.Delivery_time);
 
                 this.chartOptions5 = {
                     series: [
@@ -1780,7 +1758,6 @@ export class AdminComponent {
                         borderColor: "#EDEFF5"
                     }
                 };
-                console.log(data);
             }, error: (error) => {
                 console.log(error);
             }
@@ -1813,7 +1790,6 @@ export class AdminComponent {
                     this.Preparation_time.over_time.push(each.over_time)
 
                 });
-                console.log(this.Preparation_time);
 
                 this.chartOptions4 = {
                     series: [
@@ -1910,7 +1886,6 @@ export class AdminComponent {
                         borderColor: "#EDEFF5"
                     }
                 };
-                console.log(data);
             }, error: (error) => {
                 console.log(error);
             }
@@ -1922,7 +1897,6 @@ export class AdminComponent {
         this.Ratings.load = false
         this.http.post(`${environment.URL}/API_13`, { params: date }).subscribe({
             next: (data: any) => {
-                console.log(data);
 
                 this.Ratings.load = true
 
@@ -1933,7 +1907,6 @@ export class AdminComponent {
                     this.Ratings.user.rating = (data.data?.user[1]?.y / data.data?.user[0]?.y).toFixed(1)
                     this.Ratings.user.count = data.data?.user[0]?.y
                 } else {
-                    console.log('el 1');
                     this.Ratings.user.name = ''
                     this.Ratings.user.ratings = 0
                     this.Ratings.user.count = 0
@@ -1946,7 +1919,6 @@ export class AdminComponent {
                     this.Ratings.provider.rating = (data.data?.provider[1]?.y / data.data?.provider[0]?.y).toFixed(1)
                     this.Ratings.provider.count = data.data?.provider[0]?.y
                 } else {
-                    console.log('el 2');
 
                     this.Ratings.provider.name = ''
                     this.Ratings.provider.ratings = 0
@@ -1961,7 +1933,6 @@ export class AdminComponent {
                     this.Ratings.store.count = data.data?.store[0]?.y
 
                 } else {
-                    console.log('el 3');
 
                     this.Ratings.store.name = ''
                     this.Ratings.store.ratings = 0
@@ -1970,7 +1941,6 @@ export class AdminComponent {
                 }
 
 
-                console.log(this.Ratings);
 
 
 
@@ -1987,7 +1957,6 @@ export class AdminComponent {
         this.Average_delivery_time.load = false
         this.http.post(`${environment.URL}/API_14`, { params: date }).subscribe({
             next: (data: any) => {
-                console.log(data);
                 this.Average_delivery_time.load = true
 
                 this.Average_delivery_time.value = []

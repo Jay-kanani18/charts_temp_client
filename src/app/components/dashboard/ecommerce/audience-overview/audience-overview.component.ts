@@ -80,7 +80,6 @@ export class AudienceOverviewComponent {
 
 
         this.route.params.subscribe((paramss: any) => {
-            console.log('build');
 
             let params:any  = {}
 

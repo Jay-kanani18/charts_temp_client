@@ -52,7 +52,7 @@ export type ChartOptions = {
 })
 export class ChartsComponent {
     chart: any;
-    charts: any
+    charts: any = []
     full_screen_id: any
     user_id: any = "659fac2e37e9286a306d0ba6"
     now_date: any = new Date()
@@ -71,75 +71,51 @@ export class ChartsComponent {
         public router: Router,
         public generalService: GeneralService,) {
 
-        this.route.params.subscribe((paramss: any) => {
+        this.route.params.subscribe(async (paramss: any) => {
+
+            this.resetAll()
 
 
 
 
-            // if (this.generalService.all_countries.length <= 0) {
 
-                
-
-                
-            //     this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
-            //         next: (data: any) => {
-                        
-                        
-            //             this.generalService.all_countries = data.countries
-            //             const country = generalService.all_countries?.filter((each: any) => each._id == this.selected_country)
-            //             this.generalService.selected_currency = country[0].currency_sign
-                        
-            //             console.log(country[0]);
-            //             this.generalService.selected_country = country[0]._id
-                        
-            //             if(!paramss.country){
-            //                 console.log('TTTTTTTsssTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT');
-            //                 this.generalService.selected_currency =data.countries[0]._id
+            if (this.generalService.all_countries.length <= 0 || !this.generalService.country_detail.country_name) {
 
 
-            //             }
+                this.generalService.getCountries()
+
+            } else {
+                const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
+                this.generalService.selected_currency = country[0].currency_sign
+
+            }
 
 
-            //         }
-            //     })
+            if (!this.generalService.selected_subcatagory._id || !this.generalService.selected_country ) {
 
-            // } else {
-            //     const country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
-            //     this.generalService.selected_currency = country[0].currency_sign
-            // }
 
+                let user: any = localStorage.getItem('user')
+                let parsed_user = JSON.parse(user)
+                this.generalService.selected_catagory = parsed_user.catagory_detail[0]
+
+                // setTimeout(() => {
+                    
+                    this.router.navigate(['/admin'])
+                return
+
+            }
 
             this.subcatagory_id = paramss.id
-            this.getChartList(paramss.id)
+            this.charts = []
+            this.getChartList(generalService.selected_subcatagory._id)
 
             let country = generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
             this.generalService.country_detail = country[0]
 
-            this.generalService.selected_country = paramss.country
+            // this.generalService.selected_country = paramss.country
 
 
-            let params: any = {}
-            params.country_id = this.generalService.selected_country
 
-            params.current_date = this.getdateForUTC(new Date)
-
-            params.type = 1
-
-            this.API_1(params)
-            this.API_2(params)
-            this.API_3(params)
-            this.API_4(params)
-            this.API_5(params)
-            this.API_6(params)
-            this.API_7(params)
-            this.API_8(params)
-            this.API_9(params)
-            this.API_10(params)
-            this.API_11(params)
-            this.API_12(params)
-            this.API_13(params)
-            this.API_14(params)
-            this.API_15(params)
 
 
 
@@ -150,6 +126,7 @@ export class ChartsComponent {
 
 
     ngOnInit() {
+        this.generalService.activated_type = 2
 
         this.yesterday_date = new Date();
         this.yesterday_date.setMonth(this.yesterday_date.getMonth() - 1);
@@ -159,12 +136,141 @@ export class ChartsComponent {
 
     }
 
+    resetAll() {
+        // this.chartOptions = null
+        this.chartOptions2 = null
+        this.chartOptions3 = null
+        this.chartOptions4 = null
+        this.chartOptions5 = null
+        this.chartOptions6 = null
+
+        this.device_usage = []
+        this.top_providers.list = []
+        this.top_users.list = []
+
+        this.bussiness_detail = {
+            total_revenue: null,
+            total_orders: null,
+            total_users: null,
+            load: false
+        }
+        this.Ratings = {
+            user: {},
+            store: {},
+            provider: {}
+        }
+        this.Preparation_time = {
+            months: [],
+            ontime_count: [],
+            early_count: [],
+            over_time: []
+        }
+        this.Delivery_time = {
+            months: [],
+            ontime_count: [],
+            early_count: [],
+            over_time: []
+        }
+        this.Average_delivery_time = {
+            value: [],
+            catagory: [],
+        }
+        this.Average_order_amount = {
+            value: [],
+            catagory: [],
+        }
+        this.filter1 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter2 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter3 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter4 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter5 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter7 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter8 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter6 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter9 = {
+            name: "This Week",
+            value: 1
+        }
+
+        this.filter10 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter11 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter12 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter13 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter14 = {
+            name: "This Week",
+            value: 1
+        }
+        this.filter15 = {
+            name: "This Week",
+            value: 1
+        }
+    }
+
     getChartList(id: any) {
         this.chartsService.getCharts(id).subscribe({
             next: (data: any) => {
                 this.charts = data.data.charts
 
                 if (this.charts.length > 0) {
+
+                    let params: any = {}
+                    params.country_id = this.generalService.selected_country
+
+                    params.current_date = this.getdateForUTC(new Date)
+
+                    params.type = 1
+
+                    this.API_1(params)
+                    this.API_2(params)
+                    this.API_3(params)
+                    this.API_4(params)
+                    this.API_5(params)
+                    this.API_6(params)
+                    this.API_7(params)
+                    this.API_8(params)
+                    this.API_9(params)
+                    this.API_10(params)
+                    this.API_11(params)
+                    this.API_12(params)
+                    this.API_13(params)
+                    this.API_14(params)
+                    this.API_15(params)
 
                     // this.loadCharts()
 
@@ -763,7 +869,6 @@ export class ChartsComponent {
         }
         this.API_2(params)
         this.API_4(params)
-        console.log('111111111111111111111');
     }
     onFilter2(item: any) {
         this.filter2 = item
@@ -1100,7 +1205,6 @@ export class ChartsComponent {
 
     onDateRangeSelection(picker: any) {
 
-        console.log('Selected Date Range:', this.filter9);
         // You can access the start and end dates using this.selectedDateRange.start and this.selectedDateRange.end
     }
     API_1(date: any) {
@@ -1111,7 +1215,7 @@ export class ChartsComponent {
         this.http.post(`${environment.URL}/API_1`, { params: date }).subscribe({
             next: (data: any) => {
 
-               
+
                 this.bussiness_detail.load = true
 
 
@@ -1122,7 +1226,7 @@ export class ChartsComponent {
 
 
 
-               
+
             }, error: (error) => {
                 console.log(error);
             }
@@ -1318,7 +1422,7 @@ export class ChartsComponent {
         this.http.post(`${environment.URL}/API_4`, { params: date }).subscribe({
             next: (data: any) => {
                 this.people_visited.load = true
-               
+
                 this.orders = data.data.orders[0]?.total_orders
                 this.visited = data.data.analytic[0]?.total_visits
 
@@ -1727,7 +1831,7 @@ export class ChartsComponent {
 
 
                 });
-               
+
 
                 this.chartOptions2 = {
                     series: [
@@ -1934,7 +2038,7 @@ export class ChartsComponent {
                         borderColor: "#EDEFF5"
                     }
                 };
-               
+
             }, error: (error) => {
                 console.log(error);
             }
@@ -2045,7 +2149,7 @@ export class ChartsComponent {
                         borderColor: "#EDEFF5"
                     }
                 };
-               
+
             }, error: (error) => {
                 console.log(error);
             }
@@ -2057,7 +2161,7 @@ export class ChartsComponent {
         this.Ratings.load = false
         this.http.post(`${environment.URL}/API_13`, { params: date }).subscribe({
             next: (data: any) => {
-               
+
 
                 this.Ratings.load = true
 
@@ -2068,7 +2172,6 @@ export class ChartsComponent {
                     this.Ratings.user.rating = (data.data?.user[1]?.y / data.data?.user[0]?.y).toFixed(1)
                     this.Ratings.user.count = data.data?.user[0]?.y
                 } else {
-                    console.log('el 1');
                     this.Ratings.user.name = ''
                     this.Ratings.user.ratings = 0
                     this.Ratings.user.count = 0
@@ -2081,7 +2184,6 @@ export class ChartsComponent {
                     this.Ratings.provider.rating = (data.data?.provider[1]?.y / data.data?.provider[0]?.y).toFixed(1)
                     this.Ratings.provider.count = data.data?.provider[0]?.y
                 } else {
-                    console.log('el 2');
 
                     this.Ratings.provider.name = ''
                     this.Ratings.provider.ratings = 0
@@ -2096,7 +2198,6 @@ export class ChartsComponent {
                     this.Ratings.store.count = data.data?.store[0]?.y
 
                 } else {
-                    console.log('el 3');
 
                     this.Ratings.store.name = ''
                     this.Ratings.store.ratings = 0
@@ -2105,7 +2206,6 @@ export class ChartsComponent {
                 }
 
 
-                console.log(this.Ratings);
 
 
 
@@ -2122,7 +2222,7 @@ export class ChartsComponent {
         this.Average_delivery_time.load = false
         this.http.post(`${environment.URL}/API_14`, { params: date }).subscribe({
             next: (data: any) => {
-               
+
                 this.Average_delivery_time.load = true
 
                 this.Average_delivery_time.value = []

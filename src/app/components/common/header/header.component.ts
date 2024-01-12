@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from "../../../../environments/environment";
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
-import { Z } from '@angular/cdk/keycodes';
+import { filter } from 'rxjs/operators';
 
 @Component({
     selector: 'app-header',
@@ -16,7 +16,7 @@ import { Z } from '@angular/cdk/keycodes';
 export class HeaderComponent {
 
     isSticky: boolean = false;
-    selected_country:any = null
+    selected_country: any = null
     @HostListener('window:scroll', ['$event'])
     checkScroll() {
         const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
@@ -27,14 +27,14 @@ export class HeaderComponent {
         }
     }
 
-    countries:any = null
+    countries: any = null
 
     isToggled = false;
 
-    activated_type:any = 0
+    activated_type: any = 0
 
-    url:any = []
-    
+    url: any = []
+
     constructor(
         private toggleService: ToggleService,
         private datePipe: DatePipe,
@@ -48,28 +48,36 @@ export class HeaderComponent {
 
     ) {
 
-        this.router.events.subscribe(event => {
-            if (event instanceof NavigationEnd) {
-
-               this.url = event.url.split("/")
-
-                if(this.url[1]=='charts'){
-                    this.activated_type = 1
-
-                }else{
-                    this.activated_type = 2
-
-                }
 
 
 
+        // this.router.events.subscribe(event => {
+
+        //     console.log(event);
+        //     if (event instanceof NavigationEnd) {
 
 
-              // Your function to be executed when navigation ends
-              // You can call your functions here
-            }
-          });
-  
+        //         const params = this.route.snapshot.paramMap;
+
+        //         const allParams:any = {};
+        //         params.keys.forEach(key => {
+        //           allParams[key] = params.get(key);
+        //         });
+
+        //         console.log(allParams);
+
+        //         // this.url = event.url.split("/")
+
+        //         // if (this.url[1] == 'charts') {
+        //         //     this.activated_type = 1
+
+        //         // } else {
+        //         //     this.activated_type = 2
+
+        //         // }
+        //     }
+        // });
+
         this.toggleService.isToggled$.subscribe(isToggled => {
             this.isToggled = isToggled;
         });
@@ -81,42 +89,44 @@ export class HeaderComponent {
         //         // this.selected_country = this.countries[1]._id
         //         // this.generalService.selected_country = this.selected_country
 
-                
+
         //         // this.generalService.selected_country = this.countries[1]._id
         //         // console.log(generalService.selected_country);
 
 
-          
+
         //     }
         // })
     }
     ngOnInit() {
-        this.http.post(`${environment.URL}/get_countries`,{}).subscribe({
-            next:(data:any)=>{
-                this.countries = data.countries 
+
+
+
+
+
+        let user: any = localStorage.getItem('user')
+        let parsed_user = JSON.parse(user)
+        this.generalService.selected_catagory = parsed_user.catagory_detail[0]
+        this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
+            next: (data: any) => {
+                this.countries = data.countries
                 this.generalService.all_countries = data.countries
                 this.generalService.country_detail = data.countries[0]
-                // this.selected_country = this.countries[1]._id
-                // this.generalService.selected_country = this.selected_country
-
-                
-                // this.generalService.selected_country = this.countries[1]._id
-                // console.log(generalService.selected_country);
-
-
-          
+                this.selected_country = this.countries[0]._id
+                this.generalService.selected_country = this.selected_country
+                const country = this.generalService.all_countries?.filter((each: any) => each._id == this.generalService.selected_country)
+                this.generalService.selected_currency = country[0].currency_sign
             }
         })
         this.route.url.subscribe(urlSegments => {
 
-            console.log('wwww');
         })
-    //     this.http.post(`${environment.URL}/get_countries`).subscribe({
-    //         next:(data:any)=>{
-    //             this.countries = data.data.countries
-    //             console.log("🚀 ~ file: header.component.ts:45 ~ HeaderComponent ~ this.http.post ~  this.countries:",  this.countries)
-    //         }
-    //     })
+        //     this.http.post(`${environment.URL}/get_countries`).subscribe({
+        //         next:(data:any)=>{
+        //             this.countries = data.data.countries
+        //             console.log("🚀 ~ file: header.component.ts:45 ~ HeaderComponent ~ this.http.post ~  this.countries:",  this.countries)
+        //         }
+        //     })
     }
     toggleTheme() {
         this.themeService.toggleTheme();
@@ -149,34 +159,56 @@ export class HeaderComponent {
     toggleRTLEnabledTheme() {
         this.themeService.toggleRTLEnabledTheme();
     }
-    onSelect(country:any){
+    onSelect(country: any) {
 
         this.generalService.updateHeaderVariable("aa");
 
 
         this.selected_country = country
 
-        localStorage.setItem('country',JSON.stringify(this.selected_country))
+        localStorage.setItem('country', JSON.stringify(this.selected_country))
         this.generalService.selected_country = this.selected_country._id
         this.generalService.country_detail = this.selected_country
-        if(this.activated_type== 1){
-             this.router.navigate(['/charts',this.url[2],this.selected_country._id])
-        }else{
 
-            // this.router.navigate(['/admin',this.selected_country._id])
+        let user: any = localStorage.getItem('user')
+        let parsed_user = JSON.parse(user)
+        this.generalService.selected_catagory = parsed_user.catagory_detail[0]
 
 
-            let user:any = localStorage.getItem('user')
-            let parsed_user = JSON.parse(user)
-            let catagory = parsed_user.catagory_detail[0].name
-            console.log(parsed_user.name);
-            this.router.navigate([`/${parsed_user.name}/${this.selected_country.country_name}/${catagory}`])
+        // this.route.params.subscribe((paramss: any) => {
+
+        //     console.log(paramss);
+
+        //     if(paramss.chart){
+        //         console.log("if");
+        //         this.activated_type = 1
+
+
+        //     }else{
+        //         console.log('else3');
+        //         this.activated_type = 2
+
+
+        //     }
+
+        // })
+
+
+        if (this.generalService.activated_type == 2) {
+
+            // /{{user.name}}/{{generalService.country_detail?.country_name}}/{{generalService?.selected_catagory?.name}}/{{subcatagory.name}}
+            this.router.navigate([`/${parsed_user.name}`, this.generalService.country_detail?.country_name, this.generalService?.selected_catagory?.name, this.generalService.selected_subcatagory.name])
+
+        } else {
+
+            // this.router.navigate(['/admin',this.selected_country._id]
+            this.router.navigate([`/${parsed_user.name}/${this.selected_country.country_name}/${this.generalService.selected_catagory.name}`])
 
         }
 
 
     }
-    
+
 
     currentDate: Date = new Date();
     formattedDate: any = this.datePipe.transform(this.currentDate, 'dd MMMM yyyy');

@@ -84,7 +84,7 @@
                         <ul class="sidebar-sub-menu" >
                             <li class="  gray-color  text-center">For what?</li>
                             <li class="sidemenu-item sidemenu-link"  *ngFor="let subcatagory of catagory.for_what_Array">
-                                <a routerLink="/charts/{{subcatagory._id}}/{{generalService.selected_country}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link" (click)="$event.stopPropagation()">
+                                <a routerLink="/{{user.name}}/{{generalService.country_detail?.country_name}}/{{generalService?.selected_catagory?.name}}/{{subcatagory.name}}" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="sidemenu-link" (click)="$event.stopPropagation();generalService.selected_subcatagory = subcatagory">
                                    {{subcatagory.name}}
                                 </a>
                             </li>

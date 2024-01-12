@@ -69,11 +69,9 @@ export class SalesAnalyticsComponent {
     ) {
 
         this.route.params.subscribe((paramss: any) => {
-            console.log('build');
 
             let params:any  = {}
 
-            console.log(generalService.selected_country);
 
             params.country_id = this.generalService.selected_country
             params.type = this.filter.value

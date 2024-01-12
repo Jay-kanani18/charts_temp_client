@@ -62,7 +62,6 @@ export class AnalyticsStatusComponent {
     ) {
 
         this.route.params.subscribe((paramss: any) => {
-            console.log('build');
 
 
 
@@ -84,11 +83,8 @@ export class AnalyticsStatusComponent {
 
         this.http.get(`${environment.URL}/API_4`,{params:date}).subscribe({
             next: (data: any) => {
-                console.log(data);
                 this.orders  = data.data.orders[0].total_orders
-                console.log("🚀 ~ file: analytics-status.component.ts:77 ~ AnalyticsStatusComponent ~ this.http.get ~ this.orders:", this.orders)
                 this.visited  = data.data.analytic[0].total_visits
-                console.log("🚀 ~ file: analytics-status.component.ts:79 ~ AnalyticsStatusComponent ~ this.http.get ~ this.visited:", this.visited)
 
                 // this.chartOptions = {
                 //     series: [

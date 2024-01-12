@@ -77,7 +77,6 @@ export class StackedAreaChartComponent {
                 stacked: true,
                 events: {
                     selection: function(chart, e) {
-                        console.log(new Date(e.xaxis.min));
                     }
                 },
                 toolbar: {
