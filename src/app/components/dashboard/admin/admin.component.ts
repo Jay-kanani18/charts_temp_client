@@ -110,7 +110,8 @@ export class AdminComponent {
                             this.generalService.all_countries = data.countries
                             let country = generalService.all_countries?.filter((each: any) => each._id == this.selected_country)
                             this.generalService.country_detail = country[0]
-                            this.generalService.selected_currency = this.generalService.country_detail[0].currency_sign
+                            console.log(this.generalService.country_detail);
+                            this.generalService.selected_currency = this.generalService.country_detail.currency_sign
                             // let z = this.generalService.all_countries.filter((each: any) => each._id == paramss.id)
                             console.log(this.generalService.country_detail);
 
@@ -1472,6 +1473,8 @@ export class AdminComponent {
                         y: {
                             formatter: (val: any,) => {
                                 const formattedCurrency = this.generalService?.selected_currency;
+
+                                console.log(this.generalService?.selected_currency);
 
                                 return `${formattedCurrency} ${val}`;
                             }
