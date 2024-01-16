@@ -1313,11 +1313,16 @@ export class AdminComponent {
 
                         y: {
                             formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
-                                // Check if it's an item or modifier based on seriesIndex
+                              
+                                let total = 0
 
-                                let total = series.reduce(function (acc: any, num: any) {
-                                    return +acc + +num;
-                                }, 0);
+                                series.forEach((each:any)=>{
+
+                                    console.log(each[dataPointIndex] + "index");
+
+                                    total+=each[dataPointIndex]
+
+                                })
 
                                 let percentage = ((value / total) * 100).toFixed(1)
                                 return `${value} (${percentage}%)`;
@@ -1704,9 +1709,16 @@ export class AdminComponent {
 
                         y: {
                             formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
-                                let total = series.reduce(function (acc: any, num: any) {
-                                    return +acc + +num;
-                                }, 0);
+                              
+                                let total = 0
+
+                                series.forEach((each:any)=>{
+
+                                    console.log(each[dataPointIndex] + "index");
+
+                                    total+=each[dataPointIndex]
+
+                                })
 
                                 let percentage = ((value / total) * 100).toFixed(1)
                                 return `${value} (${percentage}%)`;
@@ -1832,11 +1844,17 @@ export class AdminComponent {
                         y: {
                             formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
 
+             
 
+                                let total = 0
 
-                                let total = series.reduce(function (acc: any, num: any) {
-                                    return +acc + +num;
-                                }, 0);
+                                series.forEach((each:any)=>{
+
+                                    console.log(each[dataPointIndex] + "index");
+
+                                    total+=each[dataPointIndex]
+
+                                })
 
                                 let percentage = ((value / total) * 100).toFixed(1)
                                 return `${value} (${percentage}%)`;
