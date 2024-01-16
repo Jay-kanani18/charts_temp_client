@@ -1645,6 +1645,24 @@ export class ChartsComponent {
                             colors: '#5B5B98'
                         }
                     },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
+                                // Check if it's an item or modifier based on seriesIndex
+
+                                let total = series.reduce(function (acc: any, num: any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let percentage = ((value / total) * 100).toFixed(1)
+                                return `${value} (${percentage}%)`;
+                            },
+                        },
+
+                    },
                     yaxis: {
                         labels: {
                             style: {
@@ -1976,6 +1994,22 @@ export class ChartsComponent {
                         },
 
                     ],
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
+                                let total = series.reduce(function (acc: any, num: any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let percentage = ((value / total) * 100).toFixed(1)
+                                return `${value} (${percentage}%)`;
+                            },
+                        },
+
+                    },
                     chart: {
                         type: "bar",
                         height: 550,
@@ -2139,6 +2173,24 @@ export class ChartsComponent {
                         axisBorder: {
                             show: false,
                         }
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+
+                        y: {
+                            formatter: (value: any, { series, seriesIndex, dataPointIndex }: any) => {
+
+
+
+                                let total = series.reduce(function (acc: any, num: any) {
+                                    return +acc + +num;
+                                }, 0);
+
+                                let percentage = ((value / total) * 100).toFixed(1)
+                                return `${value} (${percentage}%)`;
+                            },
+                        },
                     },
                     fill: {
                         opacity: 1

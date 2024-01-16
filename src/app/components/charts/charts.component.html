@@ -546,7 +546,7 @@ Charts not found
               [dataLabels]="chartOptions12?.dataLabels!" [plotOptions]="chartOptions12?.plotOptions!"
               [responsive]="chartOptions12?.responsive!" [xaxis]="chartOptions12?.xaxis!" [grid]="chartOptions12?.grid!"
               [yaxis]="chartOptions12?.yaxis!" [legend]="chartOptions12?.legend!" [colors]="chartOptions12?.colors!"
-              [fill]="chartOptions12?.fill!"></apx-chart>
+              [fill]="chartOptions12?.fill!" [tooltip]="chartOptions12?.tooltip!"></apx-chart>
           </div>
         </mat-card-content>
       </mat-card>
@@ -806,7 +806,7 @@ Charts not found
         [class.component-dark-theme]="themeService.isDark()"
         [class.component-rtl-enabled]="themeService.isRTLEnabled()">
         <mat-card-header>
-          <h5 class="mb-0">Top Drivers</h5>
+          <h5 class="mb-0">Top Hoppers</h5>
           <div class="d-inline-block" *ngIf="filter4.startDate&&filter4.endDate">
 
 
@@ -895,7 +895,7 @@ Charts not found
 
         <mat-card class="mb-25 tagus-card" *ngIf="chart.name == 'API_9'">
               <mat-card-header class=" border-bottom">
-          <h5 class="mb-0">Top Stores (by Revenue)</h5>
+          <h5 class="mb-0">Top Partners (by Revenue)</h5>
           <div class="d-inline-block" *ngIf="filter12.startDate&&filter12.endDate">
 
 
@@ -966,7 +966,7 @@ Charts not found
 
         <mat-card class="mb-25 tagus-card" *ngIf="chart.name == 'API_15'">
               <mat-card-header class=" border-bottom">
-          <h5 class="mb-0">Top Stores (by Order)</h5>
+          <h5 class="mb-0">Top Partners (by Order)</h5>
           <div class="d-inline-block" *ngIf="filter15.startDate&&filter15.endDate">
 
 
@@ -1241,7 +1241,7 @@ Charts not found
               [dataLabels]="chartOptions5?.dataLabels!" [plotOptions]="chartOptions5?.plotOptions!"
               [responsive]="chartOptions5?.responsive!" [xaxis]="chartOptions5?.xaxis!" [grid]="chartOptions5?.grid!"
               [yaxis]="chartOptions5?.yaxis!" [legend]="chartOptions5?.legend!" [colors]="chartOptions5?.colors!"
-              [fill]="chartOptions5?.fill!"></apx-chart>
+              [fill]="chartOptions5?.fill!" [tooltip]="chartOptions5?.tooltip!"></apx-chart>
           </div>
         </mat-card-content>
       </mat-card>
@@ -1309,7 +1309,7 @@ Charts not found
               [dataLabels]="chartOptions4?.dataLabels!" [plotOptions]="chartOptions4?.plotOptions!"
               [responsive]="chartOptions4?.responsive!" [xaxis]="chartOptions4?.xaxis!" [grid]="chartOptions4?.grid!"
               [yaxis]="chartOptions4?.yaxis!" [legend]="chartOptions4?.legend!" [colors]="chartOptions4?.colors!"
-              [fill]="chartOptions4?.fill!"></apx-chart>
+              [fill]="chartOptions4?.fill!" [tooltip]="chartOptions4?.tooltip!"></apx-chart>
           </div>
         </mat-card-content>
       </mat-card>
