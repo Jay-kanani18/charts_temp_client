@@ -917,6 +917,7 @@ export class AdminComponent {
         this.platform_used.load = false
         this.http.post(`${environment.URL}/API_2`, { params: date }).subscribe({
             next: (data: any) => {
+                console.log(data.data);
                 this.platform_used.load = true
                 this.platform_used.data = data.data.data
 
@@ -924,9 +925,10 @@ export class AdminComponent {
 
                     var chartDom: HTMLElement = document.getElementById("chart3") as HTMLElement;
                     let myChart = echarts.init(chartDom);
-
+                    
                     data.data.data.splice(data.data.data.length - 1, 1)
                     data.data.data.map((each: any) => {
+
                         if (each.name == "") {
                             each.name = "web"
                         }
