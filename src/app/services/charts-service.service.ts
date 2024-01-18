@@ -35,10 +35,10 @@ export class ChartsServiceService {
 
   }
 
-  getCatagory(id:any){
+  getCatagory(id:any,token:any){
 
     return this.http.post(
-      `${environment.URL}/get_for_whom?token=wef&id=${id}`,{}
+      `${environment.URL}/get_for_whom?token=${token}&id=${id}`,{}
     );
 
 

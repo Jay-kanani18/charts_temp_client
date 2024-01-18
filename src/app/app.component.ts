@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CustomizerSettingsService } from '../app/components/customizer-settings/customizer-settings.service';
-import { ToggleService } from '../app/components/common/header/toggle.service';
+import { ToastrService } from 'ngx-toastr';
+// import { Router } from '@angular/router';
+// import { CustomizerSettingsService } from '../app/components/customizer-settings/customizer-settings.service';
+// import { ToggleService } from '../app/components/common/header/toggle.service';
 
 @Component({
     selector: 'app-root',
@@ -10,42 +11,44 @@ import { ToggleService } from '../app/components/common/header/toggle.service';
 })
 export class AppComponent {
 
-    title = 'Tagus - Angular 17 Material Design Admin Dashboard Template';
+    // title = 'Tagus - Angular 17 Material Design Admin Dashboard Template';
 
-    isToggled = false;
+    // isToggled = false;
 
     constructor(
-        public router: Router,
-        private toggleService: ToggleService,
-        public themeService: CustomizerSettingsService
+        // public router: Router,
+        // private toggleService: ToggleService,
+        // public themeService: CustomizerSettingsService
+        
     ) {
-        this.toggleService.isToggled$.subscribe(isToggled => {
-            this.isToggled = isToggled;
-        });
+        // this.toggleService.isToggled$.subscribe(isToggled => {
+        //     this.isToggled = isToggled;
+        // });
     }
 
-    toggleRightSidebarTheme() {
-        this.themeService.toggleRightSidebarTheme();
-    }
 
-    toggleHideSidebarTheme() {
-        this.themeService.toggleHideSidebarTheme();
-    }
+    // toggleRightSidebarTheme() {
+    //     this.themeService.toggleRightSidebarTheme();
+    // }
 
-    toggleCardBorderTheme() {
-        this.themeService.toggleCardBorderTheme();
-    }
+    // toggleHideSidebarTheme() {
+    //     this.themeService.toggleHideSidebarTheme();
+    // }
 
-    toggleTheme() {
-        this.themeService.toggleTheme();
-    }
+    // toggleCardBorderTheme() {
+    //     this.themeService.toggleCardBorderTheme();
+    // }
 
-    toggleCardBorderRadiusTheme() {
-        this.themeService.toggleCardBorderRadiusTheme();
-    }
+    // toggleTheme() {
+    //     this.themeService.toggleTheme();
+    // }
 
-    toggleRTLEnabledTheme() {
-        this.themeService.toggleRTLEnabledTheme();
-    }
+    // toggleCardBorderRadiusTheme() {
+    //     this.themeService.toggleCardBorderRadiusTheme();
+    // }
+
+    // toggleRTLEnabledTheme() {
+    //     this.themeService.toggleRTLEnabledTheme();
+    // }
 
 }

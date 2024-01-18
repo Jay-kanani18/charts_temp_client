@@ -7,6 +7,7 @@ import { environment } from "../../../../environments/environment";
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
 import { filter } from 'rxjs/operators';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -42,6 +43,7 @@ export class HeaderComponent {
         private http: HttpClient,
         public router: Router,
         private route: ActivatedRoute,
+        private authService: AuthService,
 
         public generalService: GeneralService,
 
@@ -104,11 +106,13 @@ export class HeaderComponent {
 
 
 
-        let user: any = localStorage.getItem('user')
-        let parsed_user = JSON.parse(user)
-        this.generalService.selected_catagory = parsed_user.catagory_detail[0]
-        this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
-            next: (data: any) => {
+        setTimeout(() => {
+            
+            let user: any = localStorage.getItem('user')
+            let parsed_user = JSON.parse(user)
+            this.generalService.selected_catagory = parsed_user?.catagory_detail[0]
+            this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
+                next: (data: any) => {
                 this.countries = data.countries
                 this.generalService.all_countries = data.countries
                 this.generalService.country_detail = data.countries[0]
@@ -118,6 +122,7 @@ export class HeaderComponent {
                 this.generalService.selected_currency = country[0].currency_sign
             }
         })
+    }, 500);
         this.route.url.subscribe(urlSegments => {
 
         })
@@ -206,6 +211,11 @@ export class HeaderComponent {
 
         }
 
+
+    }
+
+    onLogout(){
+        this.authService.logOut()
 
     }
 

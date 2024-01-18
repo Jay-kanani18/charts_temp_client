@@ -26,6 +26,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { GeneralService } from 'src/app/services/general.service';
 import { MatDatepicker } from '@angular/material/datepicker';
 import { ChartsServiceService } from 'src/app/services/charts-service.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 export type ChartOptions = {
@@ -64,7 +65,9 @@ export class AdminComponent {
         private route: ActivatedRoute,
         public router: Router,
         public generalService: GeneralService,
-        private apiService: ChartsServiceService
+        private apiService: ChartsServiceService,
+        private toster:ToastrService
+
 
     ) {
         this.generalService.activated_type = 1
@@ -99,10 +102,13 @@ export class AdminComponent {
                         // console.log(parsed_user.name);
 
 
+                     
                         let user: any = localStorage.getItem('user')
                         let parsed_user = JSON.parse(user)
-                        let catagory = parsed_user.catagory_detail[0].name
-                        this.router.navigate([`/${parsed_user.name}/${this.generalService.country_detail.country_name}/${catagory}`])
+                        if(parsed_user){
+                            let catagory = parsed_user.catagory_detail[0].name
+                            this.router.navigate([`/${parsed_user.name}/${this.generalService.country_detail.country_name}/${catagory}`])
+                        }
 
 
                         // this.router.navigate([`/admin/${this.generalService.selected_country}`])
@@ -123,7 +129,7 @@ export class AdminComponent {
 
                     this.router.navigate(['/admin'])
 
-
+                    return
                     // this.http.post(`${environment.URL}/get_countries`, {}).subscribe({
                     //     next: (data: any) => {
 
@@ -201,6 +207,9 @@ export class AdminComponent {
 
         });
 
+    }
+
+    ngOnInit() {
     }
 
     @ViewChild("chart") chart: ChartComponent;
