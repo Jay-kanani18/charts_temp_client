@@ -272,14 +272,14 @@
             </div>
             <li>
                 <button  mat-icon-button [matMenuTriggerFor]="profileMenu2" class="profile-btn main-color border-none bg-transparent position-relative" >
-                    <img src="assets/img/admin.jpg" class="rounded-circle" alt="admin" >
+                    <img src="assets/img/image1.jpeg" class="rounded-circle" alt="admin" >
 
                     Admin
-                    <span class="fw-semibold">Adison Jack</span>
+                    <span class="fw-semibold">Alexandre Simon</span>
                 </button>
                 <mat-menu class="profile-menu-dropdown" #profileMenu2="matMenu" xPosition="before">
                     <ul class="m-0">
-                        <li>
+                        <!-- <li>
                             <a routerLink="/profile">
                                 <i class="ri-user-3-line"></i> Profile
                             </a>
@@ -288,7 +288,7 @@
                             <a routerLink="/account">
                                 <i class="ri-settings-3-line"></i> Settings
                             </a>
-                        </li>
+                        </li> -->
                         <li (click)="onLogout()">
                             <a >
                                 <i class="ri-shut-down-line"></i> Logout

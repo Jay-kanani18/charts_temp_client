@@ -16,7 +16,7 @@ constructor(private toster:ToastrService,private authService:AuthService){}
         if (event instanceof HttpResponse) {
 
           if(!event.body?.status){
-            this.toster.error(event.body.data.msg)
+            this.toster.error(event?.body?.data?.msg || 'Internal Server Error')
 
           }
 
